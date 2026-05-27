@@ -736,7 +736,8 @@ body{
     }
 }
 
-@media (max-width: 992px){
+@media (max-width: 1000px){ 
+    /* 992 */
     .header .logo{
         display: flex;
         justify-content: center;
@@ -748,6 +749,19 @@ body{
         gap: 24px;
         padding: 28px 20px 32px;
         background: linear-gradient(180deg, #eaf1ff 0%, #dde9ff 100%);
+    }
+    .tissaOrganization{
+        background-color: #fff;
+    }
+    .tissaFeature{
+        flex-direction: column;
+        gap: 20px;
+        margin-top: 12%;
+        padding: 24px 16px;
+        background-color: #fff;
+    }
+    .tissaFeature .bg{
+        display: none;
     }
     .hero .bg{
         display: none;
@@ -870,6 +884,48 @@ body{
     .hero .left .badge img{
         width: clamp(76px, 20vw, 100px);
         height: auto;
+    }
+}
+@media (max-width: 992px){
+    .tissaFeature .right .title-1 {
+        transform: translateY(-15px);
+    }
+    .tissaAchievement .left .Achievement-image img {
+        max-width: 105%;
+        height: 87%;
+        object-fit: cover;
+    }
+    .tissaAchievement .left .leftContact img{
+        max-width: 120%;
+    }
+    .tissaAchievement .right{
+        /* transform: translateY(-53px); */
+    }
+    .tissaAchievement .right .achievement .flex .item .content .title {
+        /* transform: translateY(25px); */
+    }
+    .tissaAchievement .right .achievement ul li.item .content .title{
+        font-size: 12px;
+    }
+    .tissaAchievement .right .achievement ul li.item .content .description{
+        font-size: 11px;
+    }
+    .tissaAchievement .right .achievement ul li.item .icon{
+        width: 40px;
+        height: 40px;
+    }
+    .tissaContact .bg{
+        right: 26%;
+        width: 74%;
+    }
+    .tissaAchievement .bg{
+        top: 4px;
+    }
+    .tissaAchievement .right .title{
+        font-size: 30px;
+    }
+    .tissaAchievement .right .achievement .flex .address_item{
+        width: 45%;
     }
 }
 
@@ -1015,7 +1071,7 @@ img{
     mask-image: linear-gradient(to right, transparent, #000 7%, #000 93%, transparent);
 }
 
-@media (min-width: 993px){
+@media (min-width: 1000px){
     .tissaSupporters{
         justify-content: center;
         align-items: center;
@@ -1127,9 +1183,6 @@ img{
         gap: 18px;
         padding: 24px 16px;
     }
-    .tissaOrganization{
-        background-color: #fff;
-    }
 
     .aboutTissa .right{
         display: flex;
@@ -1195,16 +1248,7 @@ img{
         order: 3;
     }
 
-    .tissaFeature{
-        flex-direction: column;
-        gap: 20px;
-        margin-top: 12%;
-        padding: 24px 16px;
-        background-color: #fff;
-    }
-    .tissaFeature .bg{
-        display: none;
-    }
+    
 
     .tissaFeature .left{
         width: 100%;
