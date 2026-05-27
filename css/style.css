@@ -1,0 +1,1398 @@
+:root{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    --primary-color: #EEF3F7;
+    --secondary-color: #0A308333;
+    --title-color: #010190;
+    --text-color: #637381;
+    --sections-border-radius: 40px;
+    --images-border-radius: 20px;
+    --box-content-padding: 5%;
+    font-family: 'Vazir';
+
+}
+.flex{
+    display: flex;
+}
+body{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: var(--primary-color);
+}
+.container {
+    width: 90%;
+    position: relative;
+}
+.container .header{
+    text-align: right;
+    padding: 0 30px;
+}
+.container .header .logo img{
+    width: 101px;
+    height: 70px;
+}
+.hero{
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap-reverse;
+    /* background-color: var(--secondary-color); */
+    gap: 10px;
+    border-radius: var(--sections-border-radius);
+    position: relative;
+}
+.hero .bg{
+    z-index: -2;
+    position: absolute;
+    top: -72px;
+    right: -3px;
+    width: 100%;
+    border-radius: 26px;
+}
+.hero .shape-svg {
+    position: absolute;
+    top: 3%;
+    right: 15%;
+    width: 10%;
+    height: 30%;
+    z-index: 0;
+}
+.hero .right{
+    width: 45%;
+    /*
+    background-image: url(../img/Clip\ path\ group.png);
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat; */
+    position: relative;
+    padding-right: var(--box-content-padding);
+}
+.hero::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: url(../img/Clip\ path\ group.png);
+    /* background-size: cover; */
+    background-position: center;
+    background-repeat: no-repeat;
+    opacity: 0.2;
+    z-index: 0;
+}
+
+.hero .right .title{
+    color: var(--title-color);
+    font-size: 72px;
+    font-weight: bolder;
+}
+.hero .right .subtitle{
+    color: var(--title-color);
+    font-size: 32px;
+    font-weight: bold;
+    padding: 16px 0;
+}
+.hero .right .description{
+    color: var(--text-color);
+    font-size: 16px;
+    font-weight: normal;
+    text-align: justify;
+}
+.hero .left{
+    position: relative;
+    padding: 5%;
+}
+.hero .left .image{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1;
+}
+.hero .left .image img{
+    width: 100%;
+    max-width: 400px;
+    height: auto;
+    aspect-ratio: 400 / 414;
+    object-fit: contain;
+}
+.hero .left .textbox .title{
+    color: var(--title-color);
+    font-size: 24px;
+    font-weight: bold;
+    padding: 0 20px;
+}
+.hero .left .textbox .description{
+    color: var(--text-color);
+    font-size: 14px;
+    font-weight: normal;
+    padding: 0 20px;
+}
+.hero .left .textbox{
+    position: absolute;
+    top: 65px;
+    right: 0;
+    width: 160px;
+    height: 90px;
+    border-radius: 16px;
+    background-color: #ffffff70;
+    z-index: 1;
+}
+.hero .left .badge img{
+    width: 119px;
+    height: 117px;
+}
+.hero .left .badge{
+    position: absolute;
+    top: 50px;
+    left: 20px;
+    z-index: 1;
+}
+.aboutTissa{
+    border-radius: var(--sections-border-radius);
+    margin-top: 20%;
+    align-items: center;
+    gap: 15px;
+    padding: 0 var(--box-content-padding);
+    position: relative;
+}
+.aboutTissa .bg{
+    z-index: -2;
+    position: absolute;
+    top: -36px;
+    right: -3px;
+    width: 100%;
+    border-radius: 26px;
+}
+.aboutTissa .right{
+    flex-direction: column;
+    justify-content: center;
+    align-items: start;
+    gap: 20px;
+    /* padding-right: var(--box-content-padding); */
+}
+.aboutTissa .right .title{
+    color: var(--title-color);
+    font-size: 35px;
+    font-weight: bold;
+}
+.aboutTissa .right .img img{
+    width: 420px;
+    height: 300px;
+    margin: 25px -25px 25px 25px;
+    border-radius: var(--images-border-radius);
+}
+.aboutTissa .left{
+    flex-direction: column;
+    margin-top: 45px;
+    width: 57%;
+}
+.aboutTissa .left .content .title{
+    color: var(--title-color);
+    font-weight: 600;
+    margin: 10px 0;
+}
+.aboutTissa .left .content .description{
+    color: var(--text-color);
+    text-align: justify;
+    font-size: 14px;
+}
+.tissaProduct {
+    position: relative;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-image: url('../img/fa046a60bcca42659697c6a746e93f95ee1be135.png');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    border-radius: var(--sections-border-radius);
+    padding: 0 var(--box-content-padding);
+    margin-top: 17%;
+    color: #fff;
+}
+
+.tissaProduct::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.543); /* 0.6 = 60% تیره */
+    border-radius: inherit;
+    z-index: 1;
+}
+
+.tissaProduct > * {
+    position: relative;
+    z-index: 2;
+}
+.tissaProduct .title{
+    font-size: 30px;
+    font-weight: bold;
+    color: #fff;
+    margin-top: 10px;
+}
+.tissaProduct .tabs{
+    border-radius: 30px;
+    background-color: #0C2A537A;
+    margin-top: 15px;
+    width: 100%;
+    max-width: 100%;
+    overflow-x: auto;
+}
+.tissaProduct .tabs ul{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: clamp(10px, 2vw, 28px);
+    flex-wrap: wrap;
+    min-width: max-content;
+}
+.tissaProduct .tabs ul{
+    margin: 0;
+    padding: 8px 12px;
+    list-style: none;
+}
+.tissaProduct .tabs ul li{
+    margin: 0;
+    padding: 0;
+}
+.tissaProduct .tabs button{
+    border: none;
+    background: transparent;
+    color: inherit;
+    font: inherit;
+    font-size: small;
+    padding: 10px 16px;
+    border-radius: 30px;
+    cursor: pointer;
+    white-space: nowrap;
+    transition: background-color 0.2s ease, color 0.2s ease;
+}
+.tissaProduct .accordion-toggle{
+    display: none;
+}
+.tissaProduct .tabs button:hover{
+    background-color: #ffffff20;
+}
+.tissaProduct .tabs button[aria-selected="true"],
+.tissaProduct .tabs button.is-active{
+    background-color: #fff;
+    color: #010190;
+}
+.tissaProduct .tab-panels{
+    width: 100%;
+}
+.tissaProduct .tab-panel{
+    padding: 30px 0;
+    font-size: small;
+    text-align: justify;
+    line-height: 1.9;
+}
+.tissaProduct .tab-panel[hidden]{
+    display: none;
+}
+.tissaProduct .tab-panel p + p{
+    margin-top: 1rem;
+}
+
+.tissaFeature{
+    border-radius: var(--sections-border-radius);
+    margin-top: 18%;
+    align-items: center;
+    gap: 11%;
+    padding: 0 var(--box-content-padding);   
+    padding: 30px;
+    align-items: start;
+    position: relative;
+}
+.tissaFeature .bg{
+    z-index: -2;
+    position: absolute;
+    top: -125px;
+    right: -3px;
+    width: 100%;
+    border-radius: 26px;
+}
+.tissaFeature .right{
+    flex-direction: column;
+    /* justify-content: center; */
+    align-items: start;
+    gap: 20px;
+    /* padding-right: var(--box-content-padding); */
+}
+.tissaFeature .right .title-1{
+    color: var(--title-color);
+    font-size: 35px;
+    font-weight: bold;
+    margin-bottom: 20px;
+    transform: translateY(-40px);
+    margin-left: 30%;
+}
+.tissaFeature .right .img img{
+    width: 420px;
+    height: 300px;
+    margin: 25px -25px 25px 25px;
+    border-radius: var(--images-border-radius);
+}
+.tissaFeature .right .content .title{
+    color: var(--text-color);
+    font-size: 15px;
+    font-weight: bold;
+}
+.tissaFeature .right .content .description{
+    color: var(--text-color);
+    font-size: 12px;
+    text-align: justify;
+    
+}
+.tissaFeature .left{
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+}
+.tissaFeature .left .cart{
+    border: 1px solid #0C2A531F;
+    border-radius: 16px;
+    text-align: center;
+    color: var(--title-color);
+    padding-bottom: 15px;
+}
+.tissaFeature .left .cart .title{
+    font-size: 15px;
+    font-weight: bold;
+}
+.tissaFeature .left .cart .description{
+    font-size: 12px;
+    padding: 0 5px;
+}
+.tissaFeature .left .cart .img img{
+    border-radius: 15px;
+    width: 280px;
+}
+.tissaFeature .left .cart-2{
+    filter: blur(2px);
+}
+.tissaFeature .left .cart-2 .img img{
+    border-radius: 15px;
+    width: 180px;
+}
+.tissaFeature .left .cart-2 .title{
+    font-size: 10px;
+}
+.tissaFeature .left .cart-2 .description{
+    font-size: 8px;
+}
+.tissaAchievement{
+    /* background: linear-gradient(135deg, #000309 0%, #04226B 24%, #0194FE 53%, #012B5A 90.27%); */
+    /* border-radius: var(--sections-border-radius); */
+    position: relative;
+    margin-top: 10%;
+    /* padding: 30px var(--box-content-padding);    */
+}
+.tissaAchievement .right .title{
+    color: #fff;
+    font-size: 35px;
+    font-weight: bold;
+}
+.tissaAchievement .right{
+    position: relative;
+    padding: 5px var(--box-content-padding);
+    border-radius: var(--sections-border-radius);
+    overflow: hidden;
+    background: transparent;
+}
+.tissaAchievement .bg{
+    z-index: -2;
+    position: absolute;
+    top: -17px;
+    right: 3%;
+    width: 74%;
+    border-radius: 26px;
+}
+/* .tissaAchievement-main .right::before{
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(135deg, #000309 0%, #04226B 24%, #1373b8 53%, #012B5A 90.27%);
+    z-index: -1;
+    border-radius: var(--sections-border-radius);
+    clip-path:polygon(
+        100% 0%,
+    100% 100%,
+    74% 197%,
+    12% 94%,
+    10% 89%,     
+    9% 84%,
+    5% 53%,    
+    0% 14%,
+    0% 5%,
+    4% 0%,
+    10% 0%
+    )
+} */
+
+.tissaAchievement .right .achievement ul{
+    list-style: none;
+    text-decoration: none;
+    margin-right: -40px;
+    flex-wrap: wrap;
+    width: 100%;
+    gap: 20%;
+}
+.tissaAchievement .right .achievement ul li.item{
+    justify-content: start;
+    align-items: center;
+    gap: 10px;
+    margin-top: 20px;
+}
+.tissaAchievement .right .achievement ul li.item .icon{
+    background-color: #ffffff20;
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.tissaAchievement .right .achievement ul li.item .content .title{
+    font-size: large;
+}
+.tissaAchievement .right .achievement ul li.item .content .description{
+    font-size: small;
+    color: #fff;
+}
+.tissaAchievement .left img{
+    width: 330px;
+    height: 250px;
+}
+.tissaAchievement .mobile-achievement-image{
+    display: none;
+}
+.tissaDownload{
+    margin-top: 10%;
+    /* max-width: 113%; */
+    /* position: absolute; */
+    /* left: 0; */
+    /* right: 0; */
+    /* margin-left: calc(-50vw + 50%); */
+    /* width: 100vw; */
+    width: 99vw;
+    margin-right: calc(50% - 50vw);
+    /* margin-left: calc(50% - 50vw); */
+}
+.tissaDownload img{
+    width: 100%;
+    display: block;
+    margin: 0;
+}
+.tissaOrganization{
+    border-radius: var(--sections-border-radius);
+    padding: 5px var(--box-content-padding);
+    margin-top: 24%;
+    justify-content: center;
+    align-items: center;
+    gap: 30px;
+    position: relative;
+}
+.tissaOrganization .bg{
+    z-index: -2;
+    position: absolute;
+    top: -100px;
+    right: -26px;
+    width: 100%;
+    border-radius: 26px;
+}
+.tissaOrganization .right{
+    width: 60%;
+}
+.tissaOrganization .right .title{
+    color: var(--title-color);
+    font-size: 35px;
+    font-weight: bold;
+    margin: 20px 0;
+}
+.tissaOrganization .right .description{
+    color: var(--text-color);
+    font-size: small;
+    margin: 7px 0;
+}
+.tissaOrganization .right .description ul{
+    margin-right: -20px;
+}
+.tissaOrganization .left img{
+    width: 420px;
+    height: 300px;
+    object-fit: cover;
+    border-radius: var(--images-border-radius);
+}
+.tissaSupporters{
+    justify-content: center;
+    align-items: center;
+    margin-top: 10%;
+    position: relative;
+    min-height: clamp(367px, 45vw, 560px);
+    width: 100%;
+}
+.tissaSupporters .orbit-ring{
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    width: 43%;
+    aspect-ratio: 1 / 1;
+    transform: translate(-50%, -50%);
+    pointer-events: none;
+    z-index: 2;
+}
+.tissaSupporters .orbit-ring .border{
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    border: 2px solid var(--title-color);
+    border-radius: 50%;
+    box-sizing: border-box;
+}
+.tissaSupporters .orbit-ring .arrow{
+    position: absolute;
+    width: clamp(22px, 2.8vw, 32px);
+    height: clamp(22px, 2.8vw, 32px);
+}
+.tissaSupporters .orbit-ring .arrow-1{
+    top: 0;
+    left: 50%;
+    transform: translate(-50%, -47%) rotate(44deg);
+}
+.tissaSupporters .orbit-ring .arrow-2{
+    top: 50%;
+    right: 0;
+    left: auto;
+    transform: translate(46%, -50%) rotate(132deg);
+}
+.tissaSupporters .orbit-ring .arrow-3{
+    bottom: 0;
+    top: auto;
+    left: 50%;
+    transform: translate(-50%, 46%) rotate(225deg);
+}
+.tissaSupporters .orbit-ring .arrow-4{
+    top: 50%;
+    left: 0;
+    transform: translate(-47%, -50%) rotate(317deg);
+}
+.tissaSupporters .brands{
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+}
+.tissaSupporters .brands img{
+    position: absolute;
+    width: clamp(48px, 5.2vw, 64px);
+    height: clamp(48px, 5.2vw, 64px);
+    padding: 7px;
+    background: #fff;
+    border-radius: 12px;
+    box-shadow: 0 4px 14px rgba(10, 48, 131, 0.14);
+    object-fit: contain;
+    box-sizing: border-box;
+    transform: translate(-50%, -50%);
+}
+.tissaSupporters .brands .brand-1{ left: 7%;  top: 20%; }
+.tissaSupporters .brands .brand-2{ left: 14%; top: 36%; }
+.tissaSupporters .brands .brand-3{ left: 9%;  top: 54%; }
+.tissaSupporters .brands .brand-4{ left: 16%; top: 70%; }
+.tissaSupporters .brands .brand-5{ left: 24%; top: 84%; }
+.tissaSupporters .brands .brand-6{ left: 36%; top: 98%; }
+.tissaSupporters .brands .brand-7{ left: 50%; top: 100%; }
+.tissaSupporters .brands .brand-8{ left: 64%; top: 95%; }
+.tissaSupporters .brands .brand-9{ left: 76%; top: 84%; }
+.tissaSupporters .brands .brand-10{ left: 84%; top: 70%; }
+.tissaSupporters .brands .brand-11{ left: 91%; top: 54%; }
+.tissaSupporters .brands .brand-12{ left: 86%; top: 36%; }
+.tissaSupporters .brands .brand-13{ left: 78%; top: 20%; }
+.tissaSupporters .brands .brand-14{ left: 66%; top: 9%;  }
+.tissaSupporters .brands .brand-15{ left: 50%; top: -12%;  }
+.tissaSupporters .brands .brand-16{ left: 34%; top: 9%;  }
+.tissaSupporters .brands .brand-17{ left: 76%; top: 38%; }
+.tissaSupporters .brands .brand-18{ left: 24%; top: 44%; }
+.tissaSupporters .content {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 1;
+    background-color: #747F9433;
+    border-radius: 50%;
+    width: 30%;
+    aspect-ratio: 1 / 1;
+    text-align: center;
+    flex-direction: column;
+    padding: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.tissaSupporters .content .title{
+    color: var(--title-color);
+    font-size: 35px;
+    font-weight: bold;
+    margin-bottom: 20px;
+}
+.tissaSupporters .content .description{
+    color: var(--text-color);
+    font-size: 10px;
+    text-align: justify;
+    padding: 0 25px;
+}
+.tissaContact{
+    position: relative;
+}
+.tissaContact .right .achievement{
+    transform: translateX(-30px);
+}
+.tissaContact .bg{
+    z-index: -2;
+    position: absolute;
+    top: -23px;
+    right: 24%;
+    width: 74%;
+    border-radius: 26px;
+}
+.tissaContact-11 .right::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(135deg, #000309 0%, #04226B 24%, #1373b8 53%, #012B5A 90.27%);
+    z-index: -1;
+    border-radius: var(--sections-border-radius);
+    clip-path: polygon(
+        0% 5%,
+        3% 0%,
+        97% 0%,
+        100% 5%,
+        100% 95%,
+        97% 100%,
+        3% 100%,
+        0% 95%,
+        0% 5%
+    );
+}
+.footer{
+    justify-content: space-between;
+    align-items: center;
+    background-color: #021235;
+    width: 99vw;
+    margin-right: calc(50% - 50vw);
+    /* margin-left: calc(50% - 50vw); */
+    padding: 5px var(--box-content-padding); 
+    margin-top: 10%;
+    margin-bottom: -8px;
+    
+}
+.footer .right img{
+    width: 70%;
+}
+.footer .center{
+    color: #fff;
+    text-align: center;
+}
+.footer .left{
+    gap: 10px;
+}
+.footer .left img{
+    width: 25px;
+}
+
+/* ——— Hero responsive ——— */
+@media (max-width: 1280px){
+    .hero .right .title{
+        font-size: 58px;
+    }
+    .hero .right .subtitle{
+        font-size: 28px;
+    }
+    .hero .left .image img{
+        max-width: 340px;
+    }
+    .hero .left .badge img{
+        width: 105px;
+        height: auto;
+    }
+}
+
+@media (max-width: 1024px){
+    .hero .right .title{
+        font-size: 50px;
+    }
+    .hero .right .subtitle{
+        font-size: 24px;
+    }
+    .hero .left .image img{
+        max-width: 300px;
+    }
+}
+
+@media (max-width: 992px){
+    .header .logo{
+        display: flex;
+        justify-content: center;
+    }
+    .hero{
+        flex-direction: column;
+        flex-wrap: nowrap;
+        align-items: center;
+        gap: 24px;
+        padding: 28px 20px 32px;
+        background: linear-gradient(180deg, #eaf1ff 0%, #dde9ff 100%);
+    }
+    .hero .bg{
+        display: none;
+    }
+    .aboutTissa{
+        background-color: #fff;
+    }
+    .aboutTissa .bg{
+        display: none;
+    }
+    .tissaProduct .tabs{
+        display: none;
+    }
+    .tissaProduct .tab-panels{
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+        padding: 16px 0 24px;
+    }
+    .tissaProduct .tab-panel{
+        display: block;
+        padding: 0;
+        background: rgba(255, 255, 255, 0.14);
+        border: 1px solid rgba(255, 255, 255, 0.35);
+        border-radius: 16px;
+        backdrop-filter: blur(8px);
+        -webkit-backdrop-filter: blur(8px);
+        overflow: hidden;
+    }
+    .tissaProduct .tab-panel p,
+    .tissaProduct .tab-panel ul{
+        max-height: 0;
+        opacity: 0;
+        margin: 0;
+        padding: 0 16px;
+        overflow: hidden;
+        transition: max-height 0.35s ease, opacity 0.25s ease, margin 0.35s ease, padding 0.35s ease;
+    }
+    .tissaProduct .tab-panel .accordion-toggle{
+        display: flex;
+        width: 100%;
+        border: 0;
+        background: transparent;
+        color: #fff;
+        text-align: right;
+        justify-content: space-between;
+        align-items: center;
+        padding: 14px 16px;
+        font: inherit;
+        font-weight: 700;
+        cursor: pointer;
+    }
+    .tissaProduct .tab-panel .accordion-toggle::before{
+        content: "+";
+        font-size: 20px;
+        line-height: 1;
+        margin-left: 10px;
+    }
+    .tissaProduct .tab-panel.is-active .accordion-toggle::before{
+        content: "−";
+    }
+    .tissaProduct .tab-panel.is-active p,
+    .tissaProduct .tab-panel.is-active ul{
+        max-height: 1000px;
+        opacity: 1;
+        margin-top: 10px;
+        padding: 0 16px 12px;
+    }
+    .tissaSupporters .orbit-ring,
+    .tissaSupporters .brands,
+    .tissaSupporters .content{
+        display: none;
+    }
+    .hero .left{
+        order: 1;
+    }
+    .hero .right{
+        order: 2;
+    }
+    .hero .left{
+        order: -1;
+        width: 100%;
+        max-width: 420px;
+        margin: 0 auto;
+        padding: 0;
+    }
+    .hero .right{
+        order: 0;
+        width: 100%;
+        max-width: 560px;
+        margin: 0 auto;
+        padding: 0;
+        text-align: center;
+    }
+    .hero .right .description{
+        text-align: justify;
+    }
+    .hero .left .image img{
+        max-width: min(280px, 78vw);
+    }
+    .hero .left .textbox{
+        top: 14%;
+        right: 4%;
+        width: clamp(118px, 34%, 155px);
+        height: auto;
+        min-height: 72px;
+    }
+    .hero .left .textbox .title{
+        font-size: 20px;
+        padding: 0 14px;
+    }
+    .hero .left .textbox .description{
+        font-size: 12px;
+        padding: 0 14px;
+    }
+    .hero .left .badge{
+        top: 10%;
+        left: 4%;
+    }
+    .hero .left .badge img{
+        width: clamp(76px, 20vw, 100px);
+        height: auto;
+    }
+}
+
+@media (max-width: 768px){
+    .hero{
+        padding: 22px 16px 28px;
+        gap: 20px;
+    }
+    .hero .right .title{
+        font-size: 40px;
+    }
+    .hero .right .subtitle{
+        font-size: 20px;
+        padding: 12px 0;
+    }
+    .hero .right .description{
+        font-size: 15px;
+    }
+    .hero .left .image img{
+        max-width: min(240px, 82vw);
+    }
+    .hero .left .textbox .title{
+        font-size: 18px;
+    }
+}
+
+@media (max-width: 480px){
+    .hero{
+        padding: 18px 12px 24px;
+        gap: 16px;
+    }
+    .hero .right .title{
+        font-size: 32px;
+        line-height: 1.15;
+    }
+    .hero .right .subtitle{
+        font-size: 17px;
+    }
+    .hero .right .description{
+        font-size: 14px;
+    }
+    .hero .left{
+        max-width: 100%;
+    }
+    .hero .left .image img{
+        max-width: min(200px, 88vw);
+    }
+    .hero .left .textbox{
+        top: 12%;
+        width: clamp(108px, 38%, 140px);
+        min-height: 64px;
+        border-radius: 12px;
+    }
+    .hero .left .textbox .title{
+        font-size: 16px;
+        padding: 0 10px;
+    }
+    .hero .left .textbox .description{
+        font-size: 11px;
+        padding: 0 10px;
+    }
+    .hero .left .badge img{
+        width: clamp(64px, 18vw, 84px);
+    }
+}
+
+/* ===== Responsive refresh ===== */
+*,
+*::before,
+*::after{
+    box-sizing: border-box;
+}
+
+img{
+    max-width: 100%;
+    height: auto;
+}
+
+.container{
+    width: min(90%, 1200px);
+    margin: 0 auto;
+}
+
+
+.aboutTissa .right .img img,
+.tissaOrganization .left img{
+    max-width: 100%;
+    height: auto;
+    object-fit: cover;
+}
+.tissaAchievement .left img{
+    max-width: 120%;
+    height: auto;
+    object-fit: cover;
+}
+
+.footer{
+    width: 100%;
+    margin-right: calc(50% - 50vw);
+    margin-left: calc(50% - 50vw);
+    border-radius: 20px 20px 0 0;
+}
+
+.footer-col h3{
+    margin: 0 0 10px;
+    color: #fff;
+    font-size: 16px;
+    font-weight: 700;
+}
+
+.tissaSupporters{
+    margin-top: 10%;
+    border-radius: var(--sections-border-radius);
+    padding: 32px 24px;
+    background: #fff;
+    border: 1px solid #e5e7eb;
+}
+
+.tissaSupporters .supporters-header{
+    text-align: center;
+    margin-bottom: 24px;
+}
+
+.tissaSupporters .supporters-header .title{
+    color: #0f172a;
+    font-size: clamp(26px, 3vw, 34px);
+    font-weight: 800;
+}
+
+.tissaSupporters .supporters-header .description{
+    color: #64748b;
+    font-size: 14px;
+    line-height: 1.9;
+    max-width: 920px;
+    margin: 12px auto 0;
+}
+
+.supporters-slider{
+    width: 100%;
+    overflow: hidden;
+    direction: ltr;
+    -webkit-mask-image: linear-gradient(to right, transparent, #000 7%, #000 93%, transparent);
+    mask-image: linear-gradient(to right, transparent, #000 7%, #000 93%, transparent);
+}
+
+@media (min-width: 993px){
+    .tissaSupporters{
+        justify-content: center;
+        align-items: center;
+        margin-top: 10%;
+        position: relative;
+        min-height: clamp(420px, 52vw, 560px);
+        width: 100%;
+        background: transparent;
+        border: 0;
+        padding: 0;
+    }
+
+    .tissaSupporters .supporters-header,
+    .tissaSupporters .supporters-slider{
+        display: none;
+    }
+}
+
+.supporters-track{
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    width: max-content;
+    will-change: transform;
+    animation: supporters-scroll var(--supporters-duration, 60s) linear infinite;
+}
+
+.card-logo{
+    width: 118px;
+    min-width: 118px;
+    height: 78px;
+    padding: 10px;
+    border-radius: 12px;
+    border: 1px solid #d9dee7;
+    background: #fff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 0 3px 12px rgba(15, 23, 42, 0.08);
+}
+
+.card-logo img{
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
+
+@keyframes supporters-scroll{
+    from{
+        transform: translateX(0);
+    }
+    to{
+        transform: translateX(calc(-1 * var(--scroll-distance, 50%)));
+    }
+}
+
+@media (min-width: 769px){
+    .hero{
+        flex-direction: row;
+        flex-wrap: wrap-reverse;
+    }
+
+    .hero .right,
+    .hero .left{
+        width: 45%;
+    }
+
+    .aboutTissa,
+    .tissaFeature,
+    .tissaOrganization,
+    .tissaAchievement,
+    .tissaContact,
+    
+    .tissaProduct,
+    .tissaSupporters,
+    .footer{
+        max-width: 100%;
+    }
+
+    .tissaOrganization .mobile-section-title{
+        display: none;
+    }
+}
+
+@media (max-width: 768px){
+    .container{
+        width: 94%;
+    }
+
+    .hero{
+        flex-direction: column;
+        padding: 24px 16px;
+        gap: 22px;
+    }
+
+    .hero .right,
+    .hero .left{
+        width: 100%;
+        padding: 0;
+    }
+
+    .hero .right .title{
+        font-size: 40px;
+    }
+
+    .aboutTissa,
+    .tissaOrganization{
+        flex-direction: column;
+        gap: 18px;
+        padding: 24px 16px;
+    }
+    .tissaOrganization{
+        background-color: #fff;
+    }
+
+    .aboutTissa .right{
+        display: flex;
+        flex-direction: column;
+    }
+
+    .aboutTissa .right .title{
+        order: 1;
+    }
+
+    .aboutTissa .right .img{
+        order: 2;
+    }
+
+    .aboutTissa .left{
+        order: 3;
+    }
+
+    
+    .aboutTissa .left,
+    .tissaOrganization .right,
+    .tissaOrganization .left{
+        width: 100%;
+    }
+
+    .aboutTissa .right .img img{
+        margin: 0;
+        width: 100%;
+        max-height: 280px;
+    }
+
+    .tissaOrganization .mobile-section-title{
+        display: block;
+        width: 100%;
+        font-size: 28px;
+        font-weight: 800;
+        color: var(--title-color);
+        order: 1;
+        text-align: center;
+    }
+
+    .tissaOrganization .right .title{
+        display: none;
+    }
+
+    .tissaOrganization .left{
+        order: 2;
+        display: flex;
+        justify-content: center;
+    }
+    .tissaOrganization .left img{
+        width: 100%;
+        max-width: 420px;
+        height: auto;
+        max-height: 280px;
+        margin: 0;
+    }
+    .tissaOrganization .bg{
+        display: none;
+    }
+
+    .tissaOrganization .right{
+        order: 3;
+    }
+
+    .tissaFeature{
+        flex-direction: column;
+        gap: 20px;
+        margin-top: 12%;
+        padding: 24px 16px;
+        background-color: #fff;
+    }
+    .tissaFeature .bg{
+        display: none;
+    }
+
+    .tissaFeature .left{
+        width: 100%;
+        flex-direction: row;
+        align-items: stretch;
+        order: 2;
+    }
+
+    .tissaFeature .left .cart,
+    .tissaFeature .left .cart-2{
+        width: auto;
+        filter: none;
+    }
+    .tissaFeature .left .cart{
+        flex: 1 1 68%;
+    }
+    .tissaFeature .left .cart-2{
+        flex: 0 1 32%;
+        height: 50%;
+        margin-top: 10%;
+        filter: blur(1px);
+    }
+
+    .tissaFeature .left .cart .img img,
+    .tissaFeature .left .cart-2 .img img{
+        width: 100%;
+        height: 100%;
+        max-height: 220px;
+        object-fit: cover;
+    }
+
+    .tissaFeature .right{
+        display: contents;
+    }
+
+    .tissaFeature .right .title-1{
+        order: 1;
+        width: 100%;
+        margin-bottom: 12px;
+        transform: none;
+    }
+    .tissaFeature .right .content{
+        order: 3;
+        width: 100%;
+    }
+
+    .tissaAchievement{
+        flex-direction: column;
+        align-items: center;
+        gap: 14px;
+        background: transparent;
+        border-radius: var(--sections-border-radius);
+        padding: 16px 12px;
+    }
+    .tissaAchievement .mobile-achievement-image{
+        display: block;
+        order: 1;
+        width: 50%;
+        margin: 0 auto;
+    }
+    .tissaAchievement .mobile-achievement-image img{
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        border-radius: 18px;
+        display: block;
+    }
+    .tissaContact{
+        flex-direction: column;
+        align-items: center;
+        gap: 14px;
+        background: transparent;
+        border-radius: var(--sections-border-radius);
+        padding: 16px 12px;
+    }
+
+    .tissaAchievement .bg,
+    .tissaContact .bg{
+        display: none;
+    }
+    .tissaAchievement .left{
+        display: none;
+    }
+    .tissaContact .left{
+        display: block;
+        order: 1;
+        width: 50%;
+        margin: 0 auto;
+        min-height: 260px;
+        height: 417px;
+        background-image: url('../img/Frame 2087327723.png');
+        background-position: center;
+        background-size: cover;
+        background-repeat: no-repeat;
+        border-radius: 18px;
+        overflow: hidden;
+    }
+    .tissaContact .left img{
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        border-radius: 18px;
+        display: block;
+        opacity: 0;
+    }
+
+    .tissaAchievement .right,
+    .tissaContact .right{
+        width: 100%;
+        padding: 0;
+    }
+    .tissaAchievement .right{
+        order: 2;
+        width: 50%;
+        margin: 0 auto;
+        background-image: url('../img/Frame 2087327722.svg');
+        background-position: center;
+        background-size: cover;
+        background-repeat: no-repeat;
+        background-attachment: local;
+        border-radius: 20px;
+        padding: 16px 14px;
+        transform: translateY(-88px);
+    }
+    .tissaAchievement .right .title{
+        color: #fff;
+        font-size: 22px;
+    }
+    .tissaAchievement .right .achievement ul li.item .content .description{
+        color: #fff;
+
+    }
+    .tissaContact .right{
+        order: 2;
+        width: 50%;
+        margin: 0 auto;
+        background-image: url('../img/Frame 2087327722.svg');
+        background-position: center;
+        background-size: cover;
+        background-repeat: no-repeat;
+        background-attachment: local;
+        border-radius: 20px;
+        padding: 16px 14px;
+        transform: translateY(-88px);
+    }
+    .tissaContact .right .title{
+        color: #fff;
+        font-size: 22px;
+    }
+    .tissaContact .right .main-title , .tissaAchievement .right .main-title{
+        transform: translateY(90px);
+    }
+    .tissaContact .right .achievement ul li.item .content .description{
+        color: #fff;
+    }
+
+    .tissaAchievement .right .achievement ul,
+    .tissaContact .right .achievement ul{
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+        margin: 10px 0 0;
+        padding: 0;
+        margin-top: 40%;
+    }
+
+    .tissaDownload img{
+        max-width: none;
+        width: 100%;
+    }
+
+    .tissaSupporters{
+        padding: 24px 12px;
+    }
+
+    .supporters-slider{
+        margin-top: 16px;
+    }
+
+    .footer{
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+        gap: 18px;
+        padding: 18px 16px;
+    }
+
+    .footer .left{
+        justify-content: center;
+    }
+}
