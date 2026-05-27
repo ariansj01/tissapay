@@ -1396,3 +1396,23 @@ img{
         justify-content: center;
     }
 }
+
+@media (max-width: 500px){
+    
+    .tissaContact .left , .tissaAchievement .right , .tissaAchievement .mobile-achievement-image{
+        width: 100%;
+    }
+    .tissaAchievement .right .achievement .flex .item .content{
+        width: 60%;
+    }
+    .tissaAchievement .right , .tissaContact .right{
+        transform: translateY(-140px);
+    }
+    .tissaAchievement .right .main-title , .tissaContact .right .main-title{
+        margin-top: 12%;
+    }
+
+    .tissaContact .right .achievement {
+        transform: translateX(0px);
+    }
+}
