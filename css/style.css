@@ -460,6 +460,8 @@ body{
     /* border-radius: var(--sections-border-radius); */
     position: relative;
     margin-top: 10%;
+    justify-content: space-evenly;
+    gap: 15%;
     /* padding: 30px var(--box-content-padding);    */
 }
 .tissaAchievement .right .title{
@@ -1237,6 +1239,10 @@ body{
     .tissaAchievement .right .achievement .flex .address_item{
         width: 45%;
     }
+    .tissaContact .right .title {
+        font-size: 27px;
+        margin: 4px 0;
+    }
 }
 
 @media (max-width: 768px){
@@ -1356,11 +1362,15 @@ img{
         object-fit: contain;
         transform: translate(-74px, 10px);
     }
+    .tissaAchievement{
+        justify-content: center;
+        gap: 0%;
+    }
 
     .tissaContact .left img{
         width: min(100%, 280px);
         height: auto;
-        max-height: 220px;
+        max-height: 245px; 
         object-fit: cover;
         transform: translateY(16px);
     }
