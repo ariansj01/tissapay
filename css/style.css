@@ -322,7 +322,7 @@ body{
     flex-direction: column;
     /* justify-content: center; */
     align-items: start;
-    gap: 20px;
+    /* gap: 20px; */
     /* padding-right: var(--box-content-padding); */
 }
 .tissaFeature .right .title-1{
@@ -331,7 +331,7 @@ body{
     font-weight: bold;
     margin-bottom: 20px;
     transform: translateY(-40px);
-    margin-left: 30%;
+    /* margin-left: 30%; */
 }
 .tissaFeature .right .img img{
     width: 420px;
@@ -350,12 +350,76 @@ body{
     text-align: justify;
     
 }
-.tissaFeature .left{
-    justify-content: center;
-    align-items: center;
-    gap: 20px;
+.tissaFeature .left,
+.tissaFeature .feature-cards-slider{
+    display: block;
+    flex: 0 0 50%;
+    width: 50%;
+    min-width: 300px;
+    max-width: 54%;
 }
-.tissaFeature .left .cart{
+.tissaFeature .right{
+    flex: 0 0 46%;
+    width: 46%;
+    max-width: 520px;
+}
+.tissaFeature .feature-cards-slider{
+    width: 100%;
+    min-height: 340px;
+    overflow-x: auto;
+    overflow-y: hidden;
+    scroll-snap-type: x mandatory;
+    scroll-behavior: smooth;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+    overscroll-behavior-x: contain;
+}
+.tissaFeature .feature-cards-slider::-webkit-scrollbar{
+    display: none;
+}
+.tissaFeature .feature-cards-track{
+    display: flex;
+    align-items: stretch;
+    gap: 16px;
+    width: max-content;
+    min-width: 100%;
+    flex-shrink: 0;
+    padding: 4px 2px 8px;
+}
+.tissaFeature .feature-cards-track .cart,
+.tissaFeature .feature-cards-track .cart-2{
+    flex: 0 0 auto;
+    scroll-snap-align: start;
+    scroll-snap-stop: always;
+    transition: filter 0.35s ease, opacity 0.35s ease;
+}
+.tissaFeature .feature-cards-track .cart{
+    width: 280px;
+    filter: none;
+}
+.tissaFeature .feature-cards-track .cart-2{
+    width: 170px;
+    opacity: 0.95;
+    filter: blur(2px);
+}
+.tissaFeature .feature-cards-slider[data-active-index="1"] .cart{
+    filter: blur(2px);
+    opacity: 0.85;
+}
+.tissaFeature .feature-cards-slider[data-active-index="1"] .cart-2{
+    filter: none;
+    opacity: 1;
+}
+.tissaFeature .feature-cards-slider[data-active-index="0"] .cart{
+    filter: none;
+    opacity: 1;
+}
+.tissaFeature .feature-cards-slider[data-active-index="0"] .cart-2{
+    filter: blur(2px);
+    opacity: 0.85;
+}
+.tissaFeature .left .cart,
+.tissaFeature .feature-cards-track .cart{
     border: 1px solid #0C2A531F;
     border-radius: 16px;
     text-align: center;
@@ -374,18 +438,22 @@ body{
     border-radius: 15px;
     width: 280px;
 }
-.tissaFeature .left .cart-2{
-    filter: blur(2px);
-}
-.tissaFeature .left .cart-2 .img img{
+.tissaFeature .feature-cards-track .cart .img img,
+.tissaFeature .feature-cards-track .cart-2 .img img{
+    width: 100%;
+    max-width: 280px;
+    height: auto;
     border-radius: 15px;
-    width: 180px;
+    object-fit: cover;
 }
-.tissaFeature .left .cart-2 .title{
-    font-size: 10px;
+.tissaFeature .feature-cards-track .cart-2 .img img{
+    max-width: 220px;
 }
-.tissaFeature .left .cart-2 .description{
-    font-size: 8px;
+.tissaFeature .feature-cards-track .cart-2 .title{
+    font-size: 14px;
+}
+.tissaFeature .feature-cards-track .cart-2 .description{
+    font-size: 12px;
 }
 .tissaAchievement{
     /* background: linear-gradient(135deg, #000309 0%, #04226B 24%, #0194FE 53%, #012B5A 90.27%); */
@@ -436,19 +504,27 @@ body{
     )
 } */
 
-.tissaAchievement .right .achievement ul{
+.tissaAchievement .right .achievement ul,
+.tissaContact .right .achievement ul{
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    column-gap: clamp(12px, 4vw, 32px);
+    row-gap: clamp(16px, 3vw, 24px);
     list-style: none;
-    text-decoration: none;
-    margin-right: -40px;
-    flex-wrap: wrap;
+    margin: 0;
+    padding: 0;
     width: 100%;
-    gap: 20%;
 }
-.tissaAchievement .right .achievement ul li.item{
+.tissaAchievement .right .achievement ul{
+    margin-right: -40px;
+}
+.tissaAchievement .right .achievement ul li.item,
+.tissaContact .right .achievement ul li.item{
     justify-content: start;
     align-items: center;
     gap: 10px;
-    margin-top: 20px;
+    margin-top: 0;
+    min-width: 0;
 }
 .tissaAchievement .right .achievement ul li.item .icon{
     background-color: #ffffff20;
@@ -475,20 +551,191 @@ body{
 }
 .tissaDownload{
     margin-top: 10%;
-    /* max-width: 113%; */
-    /* position: absolute; */
-    /* left: 0; */
-    /* right: 0; */
-    /* margin-left: calc(-50vw + 50%); */
-    /* width: 100vw; */
-    width: 99vw;
+    width: 100vw;
+    max-width: 100vw;
+    margin-left: calc(50% - 50vw);
     margin-right: calc(50% - 50vw);
-    /* margin-left: calc(50% - 50vw); */
+    background: url('../img/tissaDownload/Frame 1000005968 (3).png') center bottom / cover no-repeat;
+    overflow: hidden;
 }
-.tissaDownload img{
+.download-scene{
+    position: relative;
     width: 100%;
+    max-width: 1400px;
+    margin: 1.786% auto;
+    aspect-ratio: 1400 / 820;
+    container-type: inline-size;
+    container-name: download;
+}
+.download-hub{
+    position: absolute;
+    left: 50%;
+    top: 42%;
+    transform: translate(-50%, -50%);
+    width: 28%;
+    aspect-ratio: 1 / 1;
+    padding: 3.2%;
+    border-radius: 50%;
+    background: #8d97a3;
+    box-sizing: border-box;
+    z-index: 3;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 0.857cqw 2.857cqw rgba(0, 0, 0, 0.35);
+}
+.download-hub img{
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    border-radius: 50%;
     display: block;
+}
+.download-orbit{
+    position: absolute;
+    left: 50%;
+    top: 42%;
+    transform: translate(-50%, -50%);
+    width: 35%;
+    aspect-ratio: 1 / 1;
+    z-index: 2;
+}
+.download-orbit-border{
+    position: absolute;
+    inset: 0;
+    border: max(1px, 0.143cqw) solid #0091ea;
+    border-radius: 50%;
+    box-sizing: border-box;
+    box-shadow: 0 0 1.714cqw rgba(0, 145, 234, 0.25);
+}
+.download-node{
+    width: 4cqw;
+    height: 4cqw;
+    border-radius: 50%;
+    background: #0091ea;
+    border: max(1px, 0.143cqw) solid #fff;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    box-shadow: 0 0.286cqw 1cqw rgba(0, 145, 234, 0.35);
+}
+.download-node img{
+    width: 58%;
+    height: 58%;
+    object-fit: contain;
+    filter: brightness(0) invert(1);
+}
+.download-point{
+    position: absolute;
+    display: flex;
+    align-items: center;
+    gap: 0.714cqw;
+    transform: translate(-50%, -50%);
+    z-index: 4;
+}
+.download-tip{
+    width: 15.714cqw;
+    padding: 0.714cqw 0.857cqw;
+    border-radius: 0.857cqw;
+    background: #fff;
+    box-shadow: 0 0.571cqw 1.571cqw rgba(0, 0, 0, 0.16);
+}
+.download-tip p{
     margin: 0;
+    color: #1b2a4a;
+    font-size: 0.929cqw;
+    line-height: 1.65;
+    font-weight: 600;
+    text-align: center;
+}
+.download-point-1{
+    left: 50%;
+    top: -7%;
+    flex-direction: column;
+    transform: translate(-50%, calc(-50% - 0.571cqw));
+}
+.download-point-1 .download-tip{
+    margin-bottom: 0.571cqw;
+}
+.download-point-2{
+    left: 116%;
+    top: 22%;
+    flex-direction: row-reverse;
+}
+.download-point-3{
+    left: -16%;
+    top: 22%;
+    flex-direction: row;
+}
+.download-point-4{
+    left: 119%;
+    top: 72%;
+    flex-direction: row-reverse;
+}
+.download-point-5{
+    left: -20%;
+    top: 72%;
+    flex-direction: row;
+}
+.download-chevron{
+    position: absolute;
+    width: 2.143cqw;
+    height: 2.143cqw;
+    transform: translate(-50%, -50%);
+    z-index: 4;
+    filter: drop-shadow(0 0 0.429cqw rgba(0, 145, 234, 0.5));
+}
+.download-chevron-1{
+    left: 38%;
+    top: 96%;
+    transform: translate(-50%, -50%) rotate(257deg);
+}
+.download-chevron-2{
+    left: 69%;
+    top: 96%;
+    transform: translate(-50%, -50%) rotate(206deg);
+}
+.download-actions{
+    position: absolute;
+    left: 50%;
+    bottom: 6%;
+    transform: translateX(-50%);
+    width: 52%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1.143cqw;
+    z-index: 5;
+}
+.download-btn{
+    flex: 1 1 0;
+    min-height: 3.857cqw;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.714cqw;
+    padding: 0.714cqw 1.286cqw;
+    border-radius: 999px;
+    text-decoration: none;
+    color: #fff;
+    font-size: 1.071cqw;
+    font-weight: 700;
+    background: linear-gradient(90deg, #003b8f 0%, #0091ea 100%);
+    box-shadow: 0 0.714cqw 1.714cqw rgba(0, 80, 180, 0.35);
+    transition: transform 0.2s ease;
+}
+.download-btn:hover{
+    transform: translateY(-0.143cqw);
+}
+.download-btn img{
+    width: 2cqw;
+    height: 2cqw;
+    object-fit: contain;
+    flex-shrink: 0;
+}
+.download-btn span{
+    white-space: nowrap;
 }
 .tissaOrganization{
     border-radius: var(--sections-border-radius);
@@ -533,7 +780,7 @@ body{
 .tissaSupporters{
     justify-content: center;
     align-items: center;
-    margin-top: 10%;
+    margin: 10% 0;
     position: relative;
     min-height: clamp(367px, 45vw, 560px);
     width: 100%;
@@ -586,39 +833,68 @@ body{
 }
 .tissaSupporters .brands{
     position: absolute;
-    inset: 0;
+    left: 50%;
+    top: 50%;
+    width: 55%;
+    aspect-ratio: 1 / 1;
+    transform: translate(-50%, -50%);
     pointer-events: none;
 }
-.tissaSupporters .brands img{
+.tissaSupporters .brands-orbit{
+    position: relative;
+    width: 100%;
+    height: 100%;
+    container-type: size;
+    --orbit-duration: 90s;
+    animation: supporters-orbit-spin var(--orbit-duration) linear infinite;
+}
+.tissaSupporters .brand-slot{
     position: absolute;
+    left: 50%;
+    top: 50%;
+    width: 0;
+    height: 0;
+    transform: rotate(var(--angle, 0deg)) translateY(calc(-1 * var(--orbit-radius, 180px)));
+    transform-origin: center center;
+}
+.tissaSupporters .brand-upright{
+    position: absolute;
+    left: 0;
+    top: 0;
     width: clamp(48px, 5.2vw, 64px);
     height: clamp(48px, 5.2vw, 64px);
+    transform: translate(-50%, -50%);
+    animation: supporters-orbit-counter var(--orbit-duration) linear infinite;
+}
+.tissaSupporters .brand-card{
+    width: 100%;
+    height: 100%;
+}
+.tissaSupporters .brand-card img{
+    width: 100%;
+    height: 100%;
     padding: 7px;
     background: #fff;
     border-radius: 12px;
     box-shadow: 0 4px 14px rgba(10, 48, 131, 0.14);
     object-fit: contain;
     box-sizing: border-box;
-    transform: translate(-50%, -50%);
+    display: block;
 }
-.tissaSupporters .brands .brand-1{ left: 7%;  top: 20%; }
-.tissaSupporters .brands .brand-2{ left: 14%; top: 36%; }
-.tissaSupporters .brands .brand-3{ left: 9%;  top: 54%; }
-.tissaSupporters .brands .brand-4{ left: 16%; top: 70%; }
-.tissaSupporters .brands .brand-5{ left: 24%; top: 84%; }
-.tissaSupporters .brands .brand-6{ left: 36%; top: 98%; }
-.tissaSupporters .brands .brand-7{ left: 50%; top: 100%; }
-.tissaSupporters .brands .brand-8{ left: 64%; top: 95%; }
-.tissaSupporters .brands .brand-9{ left: 76%; top: 84%; }
-.tissaSupporters .brands .brand-10{ left: 84%; top: 70%; }
-.tissaSupporters .brands .brand-11{ left: 91%; top: 54%; }
-.tissaSupporters .brands .brand-12{ left: 86%; top: 36%; }
-.tissaSupporters .brands .brand-13{ left: 78%; top: 20%; }
-.tissaSupporters .brands .brand-14{ left: 66%; top: 9%;  }
-.tissaSupporters .brands .brand-15{ left: 50%; top: -12%;  }
-.tissaSupporters .brands .brand-16{ left: 34%; top: 9%;  }
-.tissaSupporters .brands .brand-17{ left: 76%; top: 38%; }
-.tissaSupporters .brands .brand-18{ left: 24%; top: 44%; }
+@keyframes supporters-orbit-spin{
+    from{ transform: rotate(0deg); }
+    to{ transform: rotate(360deg); }
+}
+@keyframes supporters-orbit-counter{
+    from{ transform: translate(-50%, -50%) rotate(0deg); }
+    to{ transform: translate(-50%, -50%) rotate(-360deg); }
+}
+@media (prefers-reduced-motion: reduce){
+    .tissaSupporters .brands-orbit,
+    .tissaSupporters .brand-upright{
+        animation: none;
+    }
+}
 .tissaSupporters .content {
     position: absolute;
     left: 50%;
@@ -755,10 +1031,52 @@ body{
     }
     .tissaFeature{
         flex-direction: column;
+        align-items: center;
         gap: 20px;
         margin-top: 12%;
         padding: 24px 16px;
         background-color: #fff;
+        text-align: center;
+    }
+    .tissaFeature .right{
+        flex: none;
+        width: 100%;
+        max-width: 720px;
+        align-items: center;
+        text-align: center;
+    }
+    .tissaFeature .right .title-1{
+        margin-left: 0;
+        transform: none;
+        text-align: center;
+        width: 100%;
+    }
+    .tissaFeature .right .content{
+        text-align: justify;
+    }
+    .tissaFeature .left,
+    .tissaFeature .feature-cards-slider{
+        flex: none;
+        width: 100%;
+        max-width: 640px;
+        min-width: 0;
+        margin: 0 auto;
+    }
+    .tissaFeature .feature-cards-slider{
+        direction: ltr;
+        min-height: 300px;
+    }
+    .tissaFeature .feature-cards-track .cart{
+        width: min(78vw, 300px);
+    }
+    .tissaFeature .feature-cards-track .cart-2{
+        width: min(64vw, 240px);
+    }
+    .tissaFeature .feature-cards-track .cart,
+    .tissaFeature .feature-cards-track .cart-2{
+        scroll-snap-align: center;
+        filter: none;
+        opacity: 1;
     }
     .tissaFeature .bg{
         display: none;
@@ -890,14 +1208,6 @@ body{
     .tissaFeature .right .title-1 {
         transform: translateY(-15px);
     }
-    .tissaAchievement .left .Achievement-image img {
-        max-width: 105%;
-        height: 87%;
-        object-fit: cover;
-    }
-    .tissaAchievement .left .leftContact img{
-        max-width: 120%;
-    }
     .tissaAchievement .right{
         /* transform: translateY(-53px); */
     }
@@ -1017,9 +1327,77 @@ img{
     object-fit: cover;
 }
 .tissaAchievement .left img{
-    max-width: 120%;
+    max-width: 100%;
     height: auto;
-    object-fit: cover;
+    object-fit: contain;
+}
+
+/* Tablet: کنترل اندازه تصاویر (۷۶۹px تا ۱۰۰۰px) */
+@media (min-width: 769px) and (max-width: 1000px){
+    .aboutTissa .right .img img{
+        width: min(100%, 360px);
+        height: auto;
+        max-height: 240px;
+        margin: 16px auto;
+        object-fit: cover;
+    }
+
+    .tissaOrganization .left img{
+        width: min(100%, 360px);
+        height: auto;
+        max-height: 240px;
+    }
+
+    .tissaAchievement .left img,
+    .tissaAchievement .left .Achievement-image img{
+        width: min(100%, 229px);
+        height: auto;
+        max-height: 200px;
+        object-fit: contain;
+        transform: translate(-74px, 10px);
+    }
+
+    .tissaContact .left img{
+        width: min(100%, 280px);
+        height: auto;
+        max-height: 220px;
+        object-fit: cover;
+        transform: translateY(16px);
+    }
+
+    .tissaFeature .right .img img{
+        width: min(100%, 320px);
+        height: auto;
+        max-height: 220px;
+        margin: 12px auto;
+        object-fit: cover;
+    }
+
+    .tissaAchievement .bg{
+        width: 78%;
+        right: 2%;
+    }
+
+    .tissaContact .bg{
+        width: 78%;
+        right: 22%;
+    }
+
+    .tissaAchievement .right .achievement ul{
+        margin-right: -16px;
+        column-gap: 10px;
+        row-gap: 14px;
+    }
+
+    .tissaAchievement .right .achievement ul li.item .icon{
+        width: 44px;
+        height: 44px;
+    }
+
+    .tissaAchievement .right .achievement ul li.item .icon img{
+        width: 22px;
+        height: auto;
+    }
 }
 
 .footer{
@@ -1075,7 +1453,7 @@ img{
     .tissaSupporters{
         justify-content: center;
         align-items: center;
-        margin-top: 10%;
+        margin: 15% 0;
         position: relative;
         min-height: clamp(420px, 52vw, 560px);
         width: 100%;
@@ -1125,6 +1503,18 @@ img{
     }
     to{
         transform: translateX(calc(-1 * var(--scroll-distance, 50%)));
+    }
+}
+
+@media (min-width: 1001px){
+    .tissaFeature .feature-cards-track .cart-2 .img img{
+        max-width: 180px;
+    }
+    .tissaFeature .feature-cards-track .cart-2 .title{
+        font-size: 10px;
+    }
+    .tissaFeature .feature-cards-track .cart-2 .description{
+        font-size: 8px;
     }
 }
 
@@ -1250,49 +1640,59 @@ img{
 
     
 
-    .tissaFeature .left{
-        width: 100%;
-        flex-direction: row;
-        align-items: stretch;
-        order: 2;
+    .tissaFeature{
+        align-items: center;
+        text-align: center;
     }
-
-    .tissaFeature .left .cart,
-    .tissaFeature .left .cart-2{
-        width: auto;
+    .tissaFeature .left,
+    .tissaFeature .feature-cards-slider{
+        flex: none;
+        width: 100%;
+        min-width: 0;
+        max-width: 100%;
+        min-height: 280px;
+        margin: 0 auto;
+    }
+    .tissaFeature .feature-cards-track{
+        padding-inline: max(12px, calc((100% - min(82vw, 300px)) / 2));
+    }
+    .tissaFeature .feature-cards-track .cart,
+    .tissaFeature .feature-cards-track .cart-2{
+        scroll-snap-align: center;
         filter: none;
+        opacity: 1;
     }
-    .tissaFeature .left .cart{
-        flex: 1 1 68%;
+    .tissaFeature .feature-cards-track .cart{
+        width: min(82vw, 300px);
     }
-    .tissaFeature .left .cart-2{
-        flex: 0 1 32%;
-        height: 50%;
-        margin-top: 10%;
-        filter: blur(1px);
+    .tissaFeature .feature-cards-track .cart-2{
+        width: min(72vw, 260px);
     }
-
-    .tissaFeature .left .cart .img img,
-    .tissaFeature .left .cart-2 .img img{
-        width: 100%;
-        height: 100%;
-        max-height: 220px;
-        object-fit: cover;
+    .tissaFeature .feature-cards-slider{
+        order: 2;
+        direction: ltr;
     }
 
     .tissaFeature .right{
         display: contents;
+        flex: none;
+        width: 100%;
+        max-width: 100%;
     }
 
     .tissaFeature .right .title-1{
         order: 1;
         width: 100%;
-        margin-bottom: 12px;
+        margin: 0 auto 12px;
         transform: none;
+        text-align: center;
     }
     .tissaFeature .right .content{
         order: 3;
         width: 100%;
+        max-width: 720px;
+        margin: 0 auto;
+        text-align: justify;
     }
 
     .tissaAchievement{
@@ -1414,10 +1814,13 @@ img{
         padding: 0;
         margin-top: 40%;
     }
-
-    .tissaDownload img{
-        max-width: none;
+    .tissaAchievement .right .achievement ul li.item,
+    .tissaContact .right .achievement ul li.item{
         width: 100%;
+        max-width: 100%;
+    }
+    .tissaAchievement .right .achievement ul{
+        margin-right: 0;
     }
 
     .tissaSupporters{
@@ -1446,11 +1849,16 @@ img{
     .tissaContact .left , .tissaAchievement .right , .tissaAchievement .mobile-achievement-image{
         width: 100%;
     }
-    .tissaAchievement .right .achievement .flex .item .content{
-        width: 60%;
+    .tissaAchievement .right .achievement .flex .item .content,
+    .tissaContact .right .achievement .flex .item .content{
+        width: auto;
+        min-width: 0;
     }
     .tissaAchievement .right , .tissaContact .right{
-        transform: translateY(-140px);
+        /* transform: translateY(-140px); */
+    }
+    .tissaAchievement .right .main-contact-title , .tissaContact .right .main-contact-title{
+        transform: translateY(60px);
     }
     .tissaAchievement .right .main-title , .tissaContact .right .main-title{
         margin-top: 12%;

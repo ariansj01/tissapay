@@ -63,8 +63,7 @@ function initProductTabs(root) {
     root.classList.toggle('is-accordion', isMobileAccordion);
 
     if (isMobileAccordion) {
-      const activeIndex = tabs.findIndex((t) => t.getAttribute('aria-selected') === 'true');
-      activateAccordion(activeIndex >= 0 ? activeIndex : 0);
+      activateAccordion(0);
     } else {
       const activeTab = tabs.find((t) => t.getAttribute('aria-selected') === 'true') || tabs[0];
       activateTab(activeTab);
@@ -149,6 +148,100 @@ function initSupportersSlider(slider) {
   slider.dataset.ready = 'true';
 }
 
+function initFeatureCardsSlider(slider) {
+  const cards = [...slider.querySelectorAll('.feature-cards-track .cart')];
+  if (!cards.length) return;
+
+  const desktopQuery = window.matchMedia('(min-width: 1001px)');
+
+  const getScrollStep = () => {
+    const first = cards[0];
+    const second = cards[1];
+    if (!second) return first.offsetWidth + 16;
+    return Math.abs(second.offsetLeft - first.offsetLeft);
+  };
+
+  const getActiveIndex = () => {
+    const step = getScrollStep();
+    if (!step) return 0;
+    return Math.min(cards.length - 1, Math.round(slider.scrollLeft / step));
+  };
+
+  const updateActiveState = () => {
+    const index = getActiveIndex();
+    slider.dataset.activeIndex = String(index);
+    cards.forEach((card, i) => {
+      card.classList.toggle('is-active', i === index);
+    });
+  };
+
+  const snapToNearest = () => {
+    const step = getScrollStep();
+    if (!step) return;
+    const index = getActiveIndex();
+    slider.scrollTo({ left: index * step, behavior: 'smooth' });
+    updateActiveState();
+  };
+
+  slider.scrollLeft = 0;
+  updateActiveState();
+
+  slider.addEventListener('wheel', (event) => {
+    if (Math.abs(event.deltaY) <= Math.abs(event.deltaX)) return;
+
+    event.preventDefault();
+    const step = getScrollStep();
+    const maxScroll = slider.scrollWidth - slider.clientWidth;
+    const next = slider.scrollLeft + (event.deltaY > 0 ? step : -step);
+    slider.scrollTo({
+      left: Math.max(0, Math.min(maxScroll, next)),
+      behavior: 'smooth',
+    });
+  }, { passive: false });
+
+  let scrollEndTimer;
+  slider.addEventListener('scroll', () => {
+    updateActiveState();
+    window.clearTimeout(scrollEndTimer);
+    scrollEndTimer = window.setTimeout(snapToNearest, 90);
+  }, { passive: true });
+
+  if (typeof desktopQuery.addEventListener === 'function') {
+    desktopQuery.addEventListener('change', updateActiveState);
+  }
+}
+
+function initSupportersOrbit(brandsRoot) {
+  const orbit = brandsRoot.querySelector('.brands-orbit');
+  const slots = [...brandsRoot.querySelectorAll('.brand-slot')];
+  if (!orbit || !slots.length) return;
+
+  const count = slots.length;
+
+  const setRadius = () => {
+    const size = orbit.getBoundingClientRect().width;
+    if (!size) return;
+
+    const radius = size / 2;
+    brandsRoot.style.setProperty('--orbit-radius', `${radius}px`);
+
+    slots.forEach((slot, index) => {
+      const angle = (360 / count) * index;
+      slot.style.setProperty('--angle', `${angle}deg`);
+    });
+  };
+
+  setRadius();
+  window.addEventListener('resize', setRadius);
+
+  if (typeof ResizeObserver !== 'undefined') {
+    const observer = new ResizeObserver(setRadius);
+    observer.observe(orbit);
+  }
+}
+
 window.addEventListener('load', () => {
   document.querySelectorAll('[data-supporters-slider]').forEach(initSupportersSlider);
+  document.querySelectorAll('[data-feature-slider]').forEach(initFeatureCardsSlider);
+  document.querySelectorAll('[data-supporters-orbit]').forEach(initSupportersOrbit);
 });
