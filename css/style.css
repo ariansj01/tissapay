@@ -469,6 +469,9 @@ body{
     gap: 5%;
     /* padding: 30px var(--box-content-padding);    */
 }
+.tissaAchievement-main{
+    gap: 20%;
+}
 .tissaAchievement .right .title{
     color: #fff;
     font-size: 35px;
@@ -485,7 +488,7 @@ body{
     z-index: -2;
     position: absolute;
     top: -17px;
-    right: 3%;
+    right: 0%;
     width: 74%;
     border-radius: 26px;
 }
@@ -552,6 +555,10 @@ body{
 .tissaAchievement .left img{
     width: 330px;
     height: 250px;
+}
+.tissaAchievement .left-contact-image img{
+    width: 92%;
+    height: 100%;
 }
 .tissaAchievement .mobile-achievement-image{
     display: none;
@@ -1597,6 +1604,7 @@ img{
     .hero .left{
         width: 100%;
         padding: 0;
+        justify-content: center;
     }
 
     .hero .right .title{
@@ -1857,7 +1865,7 @@ img{
     .tissaContact .right .achievement ul{
         display: flex;
         flex-direction: column;
-        gap: 12px;
+        gap: 25px;
         margin: 10px 0 0;
         padding: 0;
         margin-top: 40%;
