@@ -1118,7 +1118,12 @@ body{
         margin: 0;
         padding: 0 16px;
         overflow: hidden;
+        text-align: right;
         transition: max-height 0.35s ease, opacity 0.25s ease, margin 0.35s ease, padding 0.35s ease;
+    }
+    .tissaProduct .tab-panel ul{
+        padding-right: 24px;
+        padding-left: 16px;
     }
     .tissaProduct .tab-panel .accordion-toggle{
         display: flex;
@@ -1127,8 +1132,10 @@ body{
         background: transparent;
         color: #fff;
         text-align: right;
-        justify-content: space-between;
+        direction: rtl;
+        justify-content: flex-start;
         align-items: center;
+        gap: 12px;
         padding: 14px 16px;
         font: inherit;
         font-weight: 700;
@@ -1138,7 +1145,9 @@ body{
         content: "+";
         font-size: 20px;
         line-height: 1;
-        margin-left: 10px;
+        margin-left: 0;
+        margin-inline-start: auto;
+        flex-shrink: 0;
     }
     .tissaProduct .tab-panel.is-active .accordion-toggle::before{
         content: "−";
@@ -1149,6 +1158,7 @@ body{
         opacity: 1;
         margin-top: 10px;
         padding: 0 16px 12px;
+        text-align: right;
     }
     .tissaSupporters .orbit-ring,
     .tissaSupporters .brands,
@@ -1250,6 +1260,15 @@ body{
         padding: 22px 16px 28px;
         gap: 20px;
     }
+    .hero .right{
+        text-align: right;
+        margin-inline: 0;
+        max-width: 100%;
+    }
+    .hero .right .title,
+    .hero .right .subtitle{
+        text-align: right;
+    }
     .hero .right .title{
         font-size: 40px;
     }
@@ -1259,6 +1278,10 @@ body{
     }
     .hero .right .description{
         font-size: 15px;
+        text-align: justify;
+    }
+    .hero .left .badge{
+        display: none;
     }
     .hero .left .image img{
         max-width: min(240px, 82vw);
@@ -1412,8 +1435,8 @@ img{
 
 .footer{
     width: 100%;
-    margin-right: calc(50% - 50vw);
-    margin-left: calc(50% - 50vw);
+    /* margin-right: calc(50% - 50vw); */
+    /* margin-left: calc(50% - 50vw); */
     border-radius: 20px 20px 0 0;
 }
 
@@ -1428,8 +1451,8 @@ img{
     margin-top: 10%;
     border-radius: var(--sections-border-radius);
     padding: 32px 24px;
-    background: #fff;
-    border: 1px solid #e5e7eb;
+    background: transparent;
+    border: 0;
 }
 
 .tissaSupporters .supporters-header{
@@ -1591,6 +1614,9 @@ img{
 
     .aboutTissa .right .title{
         order: 1;
+        font-size: 22px;
+        text-align: center;
+        width: 100%;
     }
 
     .aboutTissa .right .img{
@@ -1696,6 +1722,8 @@ img{
         margin: 0 auto 12px;
         transform: none;
         text-align: center;
+        font-size: 22px;
+        line-height: 1.45;
     }
     .tissaFeature .right .content{
         order: 3;
@@ -1839,6 +1867,21 @@ img{
 
     .supporters-slider{
         margin-top: 16px;
+    }
+
+    .download-tip{
+        width: clamp(130px, 44vw, 200px);
+    }
+    .download-tip p{
+        font-size: clamp(11px, 3.4vw, 14px);
+    }
+    .download-btn{
+        font-size: clamp(10px, 3vw, 13px);
+    }
+    .download-btn span{
+        white-space: normal;
+        text-align: center;
+        line-height: 1.35;
     }
 
     .footer{
