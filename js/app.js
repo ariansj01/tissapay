@@ -19,7 +19,10 @@ function initProductTabs(root) {
     toggle.className = 'accordion-toggle';
     toggle.setAttribute('aria-expanded', 'false');
     toggle.dataset.panelIndex = String(index);
-    toggle.textContent = tabs[index]?.textContent?.trim() || `محصول ${index + 1}`;
+    const label = document.createElement('span');
+    label.className = 'accordion-toggle-label';
+    label.textContent = tabs[index]?.textContent?.trim() || `محصول ${index + 1}`;
+    toggle.append(label);
     panel.prepend(toggle);
   });
 
@@ -167,24 +170,44 @@ function initFeatureCardsSlider(slider) {
     return Math.min(cards.length - 1, Math.round(slider.scrollLeft / step));
   };
 
-  const updateActiveState = () => {
-    const index = getActiveIndex();
-    slider.dataset.activeIndex = String(index);
+  const activateCard = (index, { scroll = true } = {}) => {
+    const safeIndex = Math.max(0, Math.min(cards.length - 1, index));
+    slider.dataset.activeIndex = String(safeIndex);
     cards.forEach((card, i) => {
-      card.classList.toggle('is-active', i === index);
+      card.classList.toggle('is-active', i === safeIndex);
     });
+
+    if (scroll) {
+      const step = getScrollStep();
+      if (step) {
+        slider.scrollTo({ left: safeIndex * step, behavior: 'smooth' });
+      }
+    }
+  };
+
+  const updateActiveState = () => {
+    activateCard(getActiveIndex(), { scroll: false });
   };
 
   const snapToNearest = () => {
     const step = getScrollStep();
     if (!step) return;
-    const index = getActiveIndex();
-    slider.scrollTo({ left: index * step, behavior: 'smooth' });
-    updateActiveState();
+    activateCard(getActiveIndex());
   };
 
+  if (desktopQuery.matches) {
+    activateCard(0, { scroll: false });
+  } else {
+    cards.forEach((card) => card.classList.add('is-active'));
+  }
   slider.scrollLeft = 0;
-  updateActiveState();
+
+  cards.forEach((card, index) => {
+    card.addEventListener('click', () => {
+      if (!desktopQuery.matches) return;
+      activateCard(index);
+    });
+  });
 
   slider.addEventListener('wheel', (event) => {
     if (Math.abs(event.deltaY) <= Math.abs(event.deltaX)) return;
@@ -207,7 +230,13 @@ function initFeatureCardsSlider(slider) {
   }, { passive: true });
 
   if (typeof desktopQuery.addEventListener === 'function') {
-    desktopQuery.addEventListener('change', updateActiveState);
+    desktopQuery.addEventListener('change', () => {
+      if (desktopQuery.matches) {
+        activateCard(Number(slider.dataset.activeIndex || 0), { scroll: false });
+      } else {
+        cards.forEach((card) => card.classList.add('is-active'));
+      }
+    });
   }
 }
 
@@ -217,26 +246,56 @@ function initSupportersOrbit(brandsRoot) {
   if (!orbit || !slots.length) return;
 
   const count = slots.length;
+  const baseAngles = slots.map((_, index) => (360 / count) * index);
+  let orbitRadius = 0;
+  let rotation = 0;
+  let rafId = null;
 
-  const setRadius = () => {
-    const size = orbit.getBoundingClientRect().width;
-    if (!size) return;
-
-    const radius = size / 2;
-    brandsRoot.style.setProperty('--orbit-radius', `${radius}px`);
-
+  const applyPositions = () => {
     slots.forEach((slot, index) => {
-      const angle = (360 / count) * index;
+      const angle = baseAngles[index] + rotation;
       slot.style.setProperty('--angle', `${angle}deg`);
     });
   };
 
-  setRadius();
-  window.addEventListener('resize', setRadius);
+  const measureOrbit = () => {
+    const size = orbit.getBoundingClientRect().width;
+    if (!size) return;
+
+    orbitRadius = size / 2;
+    brandsRoot.style.setProperty('--orbit-radius', `${orbitRadius}px`);
+    applyPositions();
+  };
+
+  const tick = () => {
+    rotation += 0.0008;
+    if (rotation >= 360) rotation -= 360;
+    applyPositions();
+    rafId = requestAnimationFrame(tick);
+  };
+
+  measureOrbit();
+  window.addEventListener('resize', measureOrbit);
 
   if (typeof ResizeObserver !== 'undefined') {
-    const observer = new ResizeObserver(setRadius);
+    const observer = new ResizeObserver(measureOrbit);
     observer.observe(orbit);
+  }
+
+  const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+  if (!prefersReducedMotion.matches) {
+    rafId = requestAnimationFrame(tick);
+  }
+
+  if (typeof prefersReducedMotion.addEventListener === 'function') {
+    prefersReducedMotion.addEventListener('change', (event) => {
+      if (event.matches) {
+        cancelAnimationFrame(rafId);
+        rafId = null;
+      } else if (!rafId) {
+        rafId = requestAnimationFrame(tick);
+      }
+    });
   }
 }
 

@@ -1,7 +1,22 @@
-:root{
-    margin: 0;
-    padding: 0;
+@font-face{
+    font-family: 'Iranian Sans';
+    src: url('../font/iranian-sans.ttf') format('truetype');
+    font-weight: 400;
+    font-style: normal;
+    font-display: swap;
+}
+
+*,
+*::before,
+*::after{
     box-sizing: border-box;
+}
+
+html{
+    font-family: 'Iranian Sans', Tahoma, Arial, sans-serif;
+}
+
+:root{
     --primary-color: #EEF3F7;
     --secondary-color: #0A308333;
     --title-color: #010190;
@@ -9,8 +24,6 @@
     --sections-border-radius: 40px;
     --images-border-radius: 20px;
     --box-content-padding: 5%;
-    font-family: 'Vazir';
-
 }
 .flex{
     display: flex;
@@ -21,6 +34,8 @@ body{
     justify-content: center;
     align-items: center;
     background-color: var(--primary-color);
+    margin: 0;
+    font-family: inherit;
 }
 .container {
     width: 90%;
@@ -33,6 +48,7 @@ body{
 .container .header .logo img{
     width: 101px;
     height: 70px;
+    margin: 17px 0;
 }
 .hero{
     justify-content: space-between;
@@ -123,6 +139,7 @@ body{
     font-size: 24px;
     font-weight: bold;
     padding: 0 20px;
+    margin-bottom: 8px;
 }
 .hero .left .textbox .description{
     color: var(--text-color);
@@ -391,30 +408,18 @@ body{
     flex: 0 0 auto;
     scroll-snap-align: start;
     scroll-snap-stop: always;
-    transition: filter 0.35s ease, opacity 0.35s ease;
+    transition: width 0.35s ease, filter 0.35s ease, opacity 0.35s ease;
+    cursor: pointer;
 }
-.tissaFeature .feature-cards-track .cart{
+.tissaFeature .feature-cards-track .cart.is-active,
+.tissaFeature .feature-cards-track .cart-2.is-active{
     width: 280px;
     filter: none;
+    opacity: 1;
 }
-.tissaFeature .feature-cards-track .cart-2{
+.tissaFeature .feature-cards-track .cart:not(.is-active),
+.tissaFeature .feature-cards-track .cart-2:not(.is-active){
     width: 170px;
-    opacity: 0.95;
-    filter: blur(2px);
-}
-.tissaFeature .feature-cards-slider[data-active-index="1"] .cart{
-    filter: blur(2px);
-    opacity: 0.85;
-}
-.tissaFeature .feature-cards-slider[data-active-index="1"] .cart-2{
-    filter: none;
-    opacity: 1;
-}
-.tissaFeature .feature-cards-slider[data-active-index="0"] .cart{
-    filter: none;
-    opacity: 1;
-}
-.tissaFeature .feature-cards-slider[data-active-index="0"] .cart-2{
     filter: blur(2px);
     opacity: 0.85;
 }
@@ -447,7 +452,7 @@ body{
     object-fit: cover;
 }
 .tissaFeature .feature-cards-track .cart-2 .img img{
-    max-width: 220px;
+    max-width: 100%;
 }
 .tissaFeature .feature-cards-track .cart-2 .title{
     font-size: 14px;
@@ -461,7 +466,7 @@ body{
     position: relative;
     margin-top: 10%;
     justify-content: space-evenly;
-    gap: 15%;
+    gap: 5%;
     /* padding: 30px var(--box-content-padding);    */
 }
 .tissaAchievement .right .title{
@@ -562,7 +567,7 @@ body{
 }
 .download-scene{
     position: relative;
-    width: 100%;
+    width: 60%;
     max-width: 1400px;
     margin: 1.786% auto;
     aspect-ratio: 1400 / 820;
@@ -846,9 +851,6 @@ body{
     position: relative;
     width: 100%;
     height: 100%;
-    container-type: size;
-    --orbit-duration: 90s;
-    animation: supporters-orbit-spin var(--orbit-duration) linear infinite;
 }
 .tissaSupporters .brand-slot{
     position: absolute;
@@ -857,7 +859,8 @@ body{
     width: 0;
     height: 0;
     transform: rotate(var(--angle, 0deg)) translateY(calc(-1 * var(--orbit-radius, 180px)));
-    transform-origin: center center;
+    transform-origin: 0 0;
+    will-change: transform;
 }
 .tissaSupporters .brand-upright{
     position: absolute;
@@ -866,7 +869,6 @@ body{
     width: clamp(48px, 5.2vw, 64px);
     height: clamp(48px, 5.2vw, 64px);
     transform: translate(-50%, -50%);
-    animation: supporters-orbit-counter var(--orbit-duration) linear infinite;
 }
 .tissaSupporters .brand-card{
     width: 100%;
@@ -883,18 +885,9 @@ body{
     box-sizing: border-box;
     display: block;
 }
-@keyframes supporters-orbit-spin{
-    from{ transform: rotate(0deg); }
-    to{ transform: rotate(360deg); }
-}
-@keyframes supporters-orbit-counter{
-    from{ transform: translate(-50%, -50%) rotate(0deg); }
-    to{ transform: translate(-50%, -50%) rotate(-360deg); }
-}
 @media (prefers-reduced-motion: reduce){
-    .tissaSupporters .brands-orbit,
-    .tissaSupporters .brand-upright{
-        animation: none;
+    .tissaSupporters .brand-slot{
+        will-change: auto;
     }
 }
 .tissaSupporters .content {
@@ -931,6 +924,7 @@ body{
 }
 .tissaContact .right .achievement{
     transform: translateX(-30px);
+    margin-top: 25px;
 }
 .tissaContact .bg{
     z-index: -2;
@@ -964,7 +958,7 @@ body{
     align-items: center;
     background-color: #021235;
     width: 99vw;
-    margin-right: calc(50% - 50vw);
+    /* margin-right: calc(50% - 50vw); */
     /* margin-left: calc(50% - 50vw); */
     padding: 5px var(--box-content-padding); 
     margin-top: 10%;
@@ -1131,9 +1125,7 @@ body{
         border: 0;
         background: transparent;
         color: #fff;
-        text-align: right;
-        direction: rtl;
-        justify-content: flex-start;
+        direction: ltr;
         align-items: center;
         gap: 12px;
         padding: 14px 16px;
@@ -1141,12 +1133,16 @@ body{
         font-weight: 700;
         cursor: pointer;
     }
+    .tissaProduct .tab-panel .accordion-toggle-label{
+        flex: 1;
+        min-width: 0;
+        text-align: right;
+        direction: rtl;
+    }
     .tissaProduct .tab-panel .accordion-toggle::before{
         content: "+";
         font-size: 20px;
         line-height: 1;
-        margin-left: 0;
-        margin-inline-start: auto;
         flex-shrink: 0;
     }
     .tissaProduct .tab-panel.is-active .accordion-toggle::before{
@@ -1225,6 +1221,7 @@ body{
     }
     .tissaAchievement .right .achievement .flex .item .content .title {
         /* transform: translateY(25px); */
+        margin-bottom: 16px;
     }
     .tissaAchievement .right .achievement ul li.item .content .title{
         font-size: 12px;
@@ -1288,6 +1285,9 @@ body{
     }
     .hero .left .textbox .title{
         font-size: 18px;
+    }
+    .download-scene{
+        margin: 10.786% auto;
     }
 }
 
@@ -1540,13 +1540,16 @@ img{
 }
 
 @media (min-width: 1001px){
-    .tissaFeature .feature-cards-track .cart-2 .img img{
+    .tissaFeature .feature-cards-track .cart:not(.is-active) .img img,
+    .tissaFeature .feature-cards-track .cart-2:not(.is-active) .img img{
         max-width: 180px;
     }
-    .tissaFeature .feature-cards-track .cart-2 .title{
+    .tissaFeature .feature-cards-track .cart:not(.is-active) .title,
+    .tissaFeature .feature-cards-track .cart-2:not(.is-active) .title{
         font-size: 10px;
     }
-    .tissaFeature .feature-cards-track .cart-2 .description{
+    .tissaFeature .feature-cards-track .cart:not(.is-active) .description,
+    .tissaFeature .feature-cards-track .cart-2:not(.is-active) .description{
         font-size: 8px;
     }
 }
@@ -1648,6 +1651,13 @@ img{
         color: var(--title-color);
         order: 1;
         text-align: center;
+    }
+
+    .download-scene{
+        width: 100%;
+    }
+    .download-orbit{
+        width: 40%;
     }
 
     .tissaOrganization .right .title{
@@ -1870,18 +1880,25 @@ img{
     }
 
     .download-tip{
-        width: clamp(130px, 44vw, 200px);
+        width: clamp(80px, 22cqw, 130px);
+        padding: 0.5cqw 0.6cqw;
     }
     .download-tip p{
-        font-size: clamp(11px, 3.4vw, 14px);
+        font-size: clamp(7px, 0.78cqw, 10px);
+        line-height: 1.45;
     }
     .download-btn{
-        font-size: clamp(10px, 3vw, 13px);
+        min-height: 7.2cqw;
+        padding: 0.5cqw 1cqw;
+        font-size: clamp(7px, 0.85cqw, 10px);
+    }
+    .download-btn img{
+        width: 4.6cqw;
+        height: 4.6cqw;
     }
     .download-btn span{
-        white-space: normal;
-        text-align: center;
-        line-height: 1.35;
+        white-space: nowrap;
+        line-height: 1.3;
     }
 
     .footer{
@@ -1911,10 +1928,10 @@ img{
         /* transform: translateY(-140px); */
     }
     .tissaAchievement .right .main-contact-title , .tissaContact .right .main-contact-title{
-        transform: translateY(60px);
+        transform: translateY(70px);
     }
     .tissaAchievement .right .main-title , .tissaContact .right .main-title{
-        margin-top: 12%;
+        /* margin-top: 12%; */
     }
 
     .tissaContact .right .achievement {
