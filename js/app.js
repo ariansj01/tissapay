@@ -140,22 +140,32 @@ function initSupportersSlider(slider) {
   });
 
   const gap = 16;
-  const measureWidth = () => originalCards.reduce((sum, card) => {
-    return sum + card.getBoundingClientRect().width;
-  }, 0) + ((originalCards.length - 1) * gap);
+  const measureWidth = () => {
+    if (!originalCards.length) return 0;
+    return originalCards.reduce((sum, card) => {
+      return sum + card.getBoundingClientRect().width;
+    }, 0) + ((originalCards.length - 1) * gap);
+  };
 
-  let originalWidth = measureWidth();
   const pxPerSecond = 20;
-  const duration = Math.max(originalWidth / pxPerSecond, 25);
-
-  track.style.setProperty('--scroll-distance', `${originalWidth}px`);
-  track.style.setProperty('--supporters-duration', `${duration}s`);
+  let originalWidth = 0;
+  let paused = false;
+  let resumeTimer = null;
+  let autoScrollUntil = 0;
+  let userInteracting = false;
 
   const mobileQuery = window.matchMedia('(max-width: 1000px)');
   const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
-  let autoScrollRaf = null;
-  let paused = false;
-  let resumeTimer = null;
+
+  const updateMetrics = () => {
+    const nextWidth = measureWidth();
+    if (nextWidth > 0) {
+      originalWidth = nextWidth;
+    }
+    const duration = Math.max(originalWidth / pxPerSecond, 25);
+    track.style.setProperty('--scroll-distance', `${originalWidth}px`);
+    track.style.setProperty('--supporters-duration', `${duration}s`);
+  };
 
   const pauseAutoScroll = () => {
     paused = true;
@@ -166,45 +176,89 @@ function initSupportersSlider(slider) {
     clearTimeout(resumeTimer);
     resumeTimer = setTimeout(() => {
       paused = false;
+      userInteracting = false;
     }, 2500);
   };
 
+  const wrapScrollPosition = () => {
+    if (originalWidth <= 0) return;
+    if (slider.scrollLeft >= originalWidth) {
+      slider.scrollLeft -= originalWidth;
+    } else if (slider.scrollLeft < 0) {
+      slider.scrollLeft += originalWidth;
+    }
+  };
+
   const tickAutoScroll = () => {
-    if (mobileQuery.matches && !paused && !reducedMotion.matches) {
+    if (
+      mobileQuery.matches
+      && !paused
+      && !reducedMotion.matches
+      && originalWidth > 0
+      && slider.scrollWidth > slider.clientWidth + 1
+    ) {
+      autoScrollUntil = performance.now() + 48;
       slider.scrollLeft += 0.7;
       if (slider.scrollLeft >= originalWidth) {
-        slider.scrollLeft = 0;
+        slider.scrollLeft -= originalWidth;
       }
     }
-    autoScrollRaf = requestAnimationFrame(tickAutoScroll);
+    requestAnimationFrame(tickAutoScroll);
   };
 
   const bindMobileScroll = () => {
     if (!mobileQuery.matches) {
       slider.classList.remove('is-manual-scroll');
+      paused = false;
+      userInteracting = false;
+      clearTimeout(resumeTimer);
       return;
     }
 
     slider.classList.add('is-manual-scroll');
-    originalWidth = measureWidth();
-    track.style.setProperty('--scroll-distance', `${originalWidth}px`);
-
-    if (slider.scrollLeft >= originalWidth) {
-      slider.scrollLeft = 0;
-    }
+    updateMetrics();
+    wrapScrollPosition();
   };
 
-  slider.addEventListener('touchstart', pauseAutoScroll, { passive: true });
-  slider.addEventListener('pointerdown', pauseAutoScroll);
-  slider.addEventListener('wheel', pauseAutoScroll, { passive: true });
-  slider.addEventListener('scroll', () => {
+  const onUserInteractionStart = (event) => {
     if (!mobileQuery.matches) return;
+    if (event.type === 'pointerdown') {
+      if (event.pointerType === 'mouse' && event.button !== 0) return;
+      try {
+        slider.setPointerCapture(event.pointerId);
+      } catch {
+        /* ignore */
+      }
+    }
+    userInteracting = true;
+    pauseAutoScroll();
+  };
+
+  const onUserInteractionEnd = () => {
+    if (!mobileQuery.matches || !userInteracting) return;
+    scheduleResume();
+  };
+
+  slider.addEventListener('touchstart', onUserInteractionStart, { passive: true });
+  slider.addEventListener('pointerdown', onUserInteractionStart);
+  slider.addEventListener('lostpointercapture', onUserInteractionEnd);
+  slider.addEventListener('wheel', (event) => {
+    if (!mobileQuery.matches) return;
+    if (Math.abs(event.deltaX) < Math.abs(event.deltaY)) return;
+    userInteracting = true;
     pauseAutoScroll();
     scheduleResume();
   }, { passive: true });
-  slider.addEventListener('touchend', scheduleResume);
-  slider.addEventListener('pointerup', scheduleResume);
-  slider.addEventListener('pointercancel', scheduleResume);
+  slider.addEventListener('scroll', () => {
+    if (!mobileQuery.matches || performance.now() < autoScrollUntil) return;
+    wrapScrollPosition();
+    if (userInteracting) {
+      scheduleResume();
+    }
+  }, { passive: true });
+  slider.addEventListener('touchend', onUserInteractionEnd);
+  slider.addEventListener('pointerup', onUserInteractionEnd);
+  slider.addEventListener('pointercancel', onUserInteractionEnd);
 
   if (typeof mobileQuery.addEventListener === 'function') {
     mobileQuery.addEventListener('change', bindMobileScroll);
@@ -212,8 +266,17 @@ function initSupportersSlider(slider) {
     mobileQuery.addListener(bindMobileScroll);
   }
 
+  window.addEventListener('resize', updateMetrics);
+  slider.querySelectorAll('img').forEach((img) => {
+    if (img.complete) return;
+    img.addEventListener('load', updateMetrics, { once: true });
+  });
+
   bindMobileScroll();
-  autoScrollRaf = requestAnimationFrame(tickAutoScroll);
+  requestAnimationFrame(() => {
+    updateMetrics();
+    requestAnimationFrame(tickAutoScroll);
+  });
   slider.dataset.ready = 'true';
 }
 

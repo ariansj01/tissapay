@@ -1499,7 +1499,6 @@ img{
     overflow-y: hidden;
     -webkit-overflow-scrolling: touch;
     overscroll-behavior-x: contain;
-    scroll-snap-type: x proximity;
     scrollbar-width: none;
     cursor: grab;
     touch-action: pan-x;
@@ -1513,8 +1512,25 @@ img{
 .supporters-slider.is-manual-scroll .supporters-track{
     animation: none;
 }
-.supporters-slider.is-manual-scroll .card-logo{
-    scroll-snap-align: center;
+@media (max-width: 1000px){
+    .supporters-slider{
+        overflow-x: auto;
+        overflow-y: hidden;
+        -webkit-overflow-scrolling: touch;
+        overscroll-behavior-x: contain;
+        scrollbar-width: none;
+        cursor: grab;
+        touch-action: pan-x;
+    }
+    .supporters-slider:active{
+        cursor: grabbing;
+    }
+    .supporters-slider::-webkit-scrollbar{
+        display: none;
+    }
+    .supporters-slider .supporters-track{
+        animation: none;
+    }
 }
 
 @media (min-width: 1000px){
