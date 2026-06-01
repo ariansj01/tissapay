@@ -4,6 +4,36 @@
     box-sizing: border-box;
 }
 
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+figure,
+figcaption{
+    margin: 0;
+}
+
+.hero .right .subtitle,
+.hero .right .description,
+.hero .left .textbox .title,
+.hero .left .textbox .description,
+.aboutTissa .left .content .description,
+.tissaFeature .right .content .description,
+.tissaAchievement .right .achievement ul li.item .content .description,
+.tissaContact .right .achievement ul li.item .content .description,
+.tissaSupporters .content .description,
+.tissaSupporters .supporters-header .description,
+.footer .center{
+    margin: 0;
+}
+
+address.description{
+    margin: 0;
+    font-style: inherit;
+}
+
 :root{
     --font-family: IRANSansX, Tahoma, Arial, sans-serif;
     --primary-color: #EEF3F7;
