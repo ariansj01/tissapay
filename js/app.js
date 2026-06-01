@@ -369,10 +369,93 @@ function initFeatureCardsSlider(slider) {
   }
 }
 
+function initSupportersOrbitParallax(section) {
+  const uprights = [...section.querySelectorAll('.brand-upright')];
+  if (!uprights.length) return;
+
+  const desktopQuery = window.matchMedia('(min-width: 1001px)');
+  const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+  const maxOffset = 14;
+  let targetX = 0;
+  let targetY = 0;
+  let currentX = 0;
+  let currentY = 0;
+
+  const resetParallax = () => {
+    uprights.forEach((el) => {
+      el.style.setProperty('--parallax-x', '0px');
+      el.style.setProperty('--parallax-y', '0px');
+    });
+  };
+
+  const onMouseMove = (event) => {
+    if (!desktopQuery.matches || reducedMotion.matches) return;
+
+    const rect = section.getBoundingClientRect();
+    const halfW = rect.width / 2;
+    const halfH = rect.height / 2;
+    if (!halfW || !halfH) return;
+
+    const nx = Math.max(-1, Math.min(1, (event.clientX - rect.left - halfW) / halfW));
+    const ny = Math.max(-1, Math.min(1, (event.clientY - rect.top - halfH) / halfH));
+    targetX = nx;
+    targetY = ny;
+  };
+
+  const onMouseLeave = () => {
+    targetX = 0;
+    targetY = 0;
+  };
+
+  const tick = () => {
+    if (desktopQuery.matches && !reducedMotion.matches) {
+      currentX += (targetX - currentX) * 0.1;
+      currentY += (targetY - currentY) * 0.1;
+
+      uprights.forEach((el, index) => {
+        const slot = el.closest('.brand-slot');
+        const depth = slot?.dataset.ring === 'outer' ? 1 : 0.62;
+        const vary = 0.88 + 0.12 * Math.sin((index / uprights.length) * Math.PI * 2);
+        const ox = currentX * maxOffset * depth * vary;
+        const oy = currentY * maxOffset * depth * vary;
+        el.style.setProperty('--parallax-x', `${ox.toFixed(2)}px`);
+        el.style.setProperty('--parallax-y', `${oy.toFixed(2)}px`);
+      });
+    } else {
+      currentX = 0;
+      currentY = 0;
+      targetX = 0;
+      targetY = 0;
+      resetParallax();
+    }
+
+    requestAnimationFrame(tick);
+  };
+
+  section.addEventListener('mousemove', onMouseMove);
+  section.addEventListener('mouseleave', onMouseLeave);
+
+  if (typeof desktopQuery.addEventListener === 'function') {
+    desktopQuery.addEventListener('change', () => {
+      if (!desktopQuery.matches) {
+        onMouseLeave();
+        resetParallax();
+      }
+    });
+  }
+
+  requestAnimationFrame(tick);
+}
+
 function initSupportersOrbit(brandsRoot) {
   const orbit = brandsRoot.querySelector('.brands-orbit');
   const slots = [...brandsRoot.querySelectorAll('.brand-slot')];
   if (!orbit || !slots.length) return;
+
+  const section = brandsRoot.closest('.tissaSupporters');
+  if (section) {
+    initSupportersOrbitParallax(section);
+  }
 
   const outerSlots = slots.filter((_, index) => index % 2 === 0);
   const innerSlots = slots.filter((_, index) => index % 2 === 1);

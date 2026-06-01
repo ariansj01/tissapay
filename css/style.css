@@ -117,52 +117,82 @@ body{
 .hero .left{
     position: relative;
     padding: 5%;
-}
-.hero .left .image{
     display: flex;
     justify-content: center;
     align-items: center;
+    min-width: 0;
+}
+/* کانتینر واحد تصویر + textbox + badge — همهٔ موقعیت‌ها درصدی نسبت به همین باکس */
+.hero .hero-visual{
+    position: relative;
+    width: min(100%, 25rem);
+    max-width: 100%;
+    margin-inline: auto;
+    line-height: 0;
+    container-type: inline-size;
+    container-name: hero-visual;
+}
+.hero .left .image{
+    display: block;
+    width: 100%;
     z-index: 1;
 }
 .hero .left .image img{
     width: 100%;
-    max-width: 400px;
     height: auto;
     aspect-ratio: 400 / 414;
     object-fit: contain;
-}
-.hero .left .textbox .title{
-    color: var(--title-color);
-    font-size: 24px;
-    font-weight: bold;
-    padding: 0 20px;
-    margin-bottom: 8px;
-}
-.hero .left .textbox .description{
-    color: var(--text-color);
-    font-size: 14px;
-    font-weight: normal;
-    padding: 0 20px;
+    display: block;
+    vertical-align: top;
 }
 .hero .left .textbox{
     position: absolute;
-    top: 65px;
+    top: 15.7%;
     right: 0;
-    width: 160px;
-    height: 90px;
-    border-radius: 16px;
-    background-color: #ffffff70;
-    z-index: 1;
+    left: auto;
+    width: 40%;
+    min-width: 6.75rem;
+    max-width: 10rem;
+    height: auto;
+    min-height: 21.7%;
+    padding-bottom: 0.35rem;
+    border-radius: clamp(10px, 4cqw, 16px);
+    background-color: rgba(255, 255, 255, 0.44);
+    backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(4px);
+    z-index: 2;
+    line-height: normal;
+    box-sizing: border-box;
 }
-.hero .left .badge img{
-    width: 119px;
-    height: 117px;
+.hero .left .textbox .title{
+    color: var(--title-color);
+    font-size: clamp(0.875rem, 6.5cqw, 1.5rem);
+    font-weight: bold;
+    padding: 0.45rem clamp(0.5rem, 5cqw, 1.25rem) 0.2rem;
+    margin: 0;
+    line-height: 1.25;
+}
+.hero .left .textbox .description{
+    color: var(--text-color);
+    font-size: clamp(0.6875rem, 3.6cqw, 0.875rem);
+    font-weight: normal;
+    padding: 0  clamp(0.5rem, 5cqw, 1.25rem) 0.45rem;
+    margin: 0;
+    line-height: 1.45;
 }
 .hero .left .badge{
     position: absolute;
-    top: 50px;
-    left: 20px;
-    z-index: 1;
+    top: 12.1%;
+    left: 5%;
+    width: 29.75%;
+    max-width: 7.4375rem;
+    z-index: 2;
+    line-height: 0;
+}
+.hero .left .badge img{
+    width: 100%;
+    height: auto;
+    display: block;
 }
 .aboutTissa{
     border-radius: var(--sections-border-radius);
@@ -201,7 +231,9 @@ body{
 .aboutTissa .left{
     flex-direction: column;
     margin-top: 45px;
+    margin-bottom: 20px;
     width: 57%;
+    padding-right: 30px;
 }
 .aboutTissa .left .content .title{
     color: var(--title-color);
@@ -336,6 +368,7 @@ body{
     flex-direction: column;
     /* justify-content: center; */
     align-items: start;
+    margin-top: -45px;
     /* gap: 20px; */
     /* padding-right: var(--box-content-padding); */
 }
@@ -518,7 +551,7 @@ body{
 .tissaContact .right .achievement ul{
     display: grid;
     grid-template-columns: repeat(2, minmax(0, 1fr));
-    column-gap: clamp(12px, 4vw, 32px);
+    column-gap: clamp(12px, 10vw, 73px);
     row-gap: clamp(16px, 3vw, 24px);
     list-style: none;
     margin: 0;
@@ -654,7 +687,7 @@ body{
     z-index: 4;
 }
 .download-tip{
-    width: 15.714cqw;
+    width: 35.714cqw;
     padding: 0.714cqw 0.857cqw;
     border-radius: 0.857cqw;
     background: #fff;
@@ -663,7 +696,7 @@ body{
 .download-tip p{
     margin: 0;
     color: #1b2a4a;
-    font-size: 1.3cqw;
+    font-size: 2cqw;
     line-height: 1.65;
     font-weight: 600;
     text-align: center;
@@ -678,29 +711,29 @@ body{
     margin-bottom: 0.571cqw;
 }
 .download-point-2{
-    left: 116%;
+    left: 143%;
     top: 22%;
     flex-direction: row-reverse;
 }
 .download-point-3{
-    left: -16%;
+    left: -43%;
     top: 22%;
     flex-direction: row;
 }
 .download-point-4{
-    left: 119%;
+    left: 148%;
     top: 72%;
     flex-direction: row-reverse;
 }
 .download-point-5{
-    left: -20%;
+    left: -47%;
     top: 72%;
     flex-direction: row;
 }
 .download-chevron{
     position: absolute;
-    width: 2.143cqw;
-    height: 2.143cqw;
+    width: 3cqw;
+    height: 3cqw;
     transform: translate(-50%, -50%);
     z-index: 4;
     filter: drop-shadow(0 0 0.429cqw rgba(0, 145, 234, 0.5));
@@ -708,7 +741,7 @@ body{
 .download-chevron-1{
     left: 38%;
     top: 96%;
-    transform: translate(-50%, -50%) rotate(257deg);
+    transform: translate(-130%, -50%) rotate(245deg);
 }
 .download-chevron-2{
     left: 69%;
@@ -729,16 +762,16 @@ body{
 }
 .download-btn{
     flex: 1 1 0;
-    min-height: 3.857cqw;
+    min-height: 5.857cqw;
     display: flex;
     align-items: center;
     justify-content: center;
     gap: 0.714cqw;
-    padding: 0.714cqw 1.286cqw;
+    padding: 0.714cqw 3.286cqw;
     border-radius: 999px;
     text-decoration: none;
     color: #fff;
-    font-size: 1.3cqw;
+    font-size: 1.6cqw;
     font-weight: 700;
     background: linear-gradient(90deg, #003b8f 0%, var(--title-color) 100%);
     box-shadow: 0 0.714cqw 1.714cqw rgba(0, 80, 180, 0.35);
@@ -882,7 +915,8 @@ body{
     top: 0;
     width: clamp(48px, 5.2vw, 68px);
     height: clamp(48px, 5.2vw, 68px);
-    transform: translate(-50%, -50%) rotate(calc(-1 * var(--angle, 0deg)));
+    transform: translate(-50%, -50%) rotate(calc(-1 * var(--angle, 0deg))) translate(var(--parallax-x, 0px), var(--parallax-y, 0px));
+    will-change: transform;
 }
 .tissaSupporters .brand-slot[data-ring="outer"] .brand-upright{
     width: clamp(52px, 5.6vw, 72px);
@@ -1000,12 +1034,8 @@ body{
     .hero .right .subtitle{
         font-size: 28px;
     }
-    .hero .left .image img{
-        max-width: 340px;
-    }
-    .hero .left .badge img{
-        width: 105px;
-        height: auto;
+    .hero .hero-visual{
+        width: min(100%, 21.25rem);
     }
 }
 
@@ -1016,8 +1046,8 @@ body{
     .hero .right .subtitle{
         font-size: 24px;
     }
-    .hero .left .image img{
-        max-width: 300px;
+    .hero .hero-visual{
+        width: min(100%, 18.75rem);
     }
 }
 
@@ -1198,31 +1228,8 @@ body{
     .hero .right .description{
         text-align: justify;
     }
-    .hero .left .image img{
-        max-width: min(280px, 78vw);
-    }
-    .hero .left .textbox{
-        top: 14%;
-        right: 4%;
-        width: clamp(118px, 34%, 155px);
-        height: auto;
-        min-height: 72px;
-    }
-    .hero .left .textbox .title{
-        font-size: 20px;
-        padding: 0 14px;
-    }
-    .hero .left .textbox .description{
-        font-size: 12px;
-        padding: 0 14px;
-    }
-    .hero .left .badge{
-        top: 10%;
-        left: 4%;
-    }
-    .hero .left .badge img{
-        width: clamp(76px, 20vw, 100px);
-        height: auto;
+    .hero .hero-visual{
+        width: min(78vw, 17.5rem);
     }
 }
 @media (max-width: 992px){
@@ -1293,11 +1300,8 @@ body{
     .hero .left .badge{
         display: none;
     }
-    .hero .left .image img{
-        max-width: min(240px, 82vw);
-    }
-    .hero .left .textbox .title{
-        font-size: 18px;
+    .hero .hero-visual{
+        width: min(82vw, 15rem);
     }
     .download-scene{
         margin: 10.786% auto;
@@ -1322,25 +1326,8 @@ body{
     .hero .left{
         max-width: 100%;
     }
-    .hero .left .image img{
-        max-width: min(200px, 88vw);
-    }
-    .hero .left .textbox{
-        top: 12%;
-        width: clamp(108px, 38%, 140px);
-        min-height: 64px;
-        border-radius: 12px;
-    }
-    .hero .left .textbox .title{
-        font-size: 16px;
-        padding: 0 10px;
-    }
-    .hero .left .textbox .description{
-        font-size: 11px;
-        padding: 0 10px;
-    }
-    .hero .left .badge img{
-        width: clamp(64px, 18vw, 84px);
+    .hero .hero-visual{
+        width: min(88vw, 12.5rem);
     }
 }
 
@@ -1374,8 +1361,19 @@ img{
     object-fit: contain;
 }
 
-/* Tablet: کنترل اندازه تصاویر (۷۶۹px تا ۱۰۰۰px) */
+/* Tablet: 769px – 1000px (شامل portrait) */
 @media (min-width: 769px) and (max-width: 1000px){
+    .hero .left{
+        width: 100%;
+        max-width: 20rem;
+        margin-inline: auto;
+        padding: 0;
+    }
+
+    .hero .hero-visual{
+        width: 100%;
+    }
+
     .aboutTissa .right .img img{
         width: min(100%, 360px);
         height: auto;
@@ -1392,11 +1390,11 @@ img{
 
     .tissaAchievement .left img,
     .tissaAchievement .left .Achievement-image img{
-        width: min(100%, 229px);
+        width: clamp(180px, 28vw, 300px);
         height: auto;
-        max-height: 200px;
+        max-height: clamp(150px, 22vw, 224px);
         object-fit: contain;
-        transform: translate(-74px, 10px);
+        transform: translate(-55px, 10px);
     }
     .tissaAchievement{
         justify-content: center;
@@ -1425,8 +1423,15 @@ img{
     }
 
     .tissaContact .bg{
-        width: 78%;
-        right: 22%;
+        width: 75%;
+        right: 25%;
+    }
+    .tissaAchievement .right .achievement {
+        margin-top: 8px;
+    }
+    .tissaAchievement .right .achievement .flex .item .content .title {
+        /* transform: translateY(25px); */
+        margin-bottom: 6px;
     }
 
     .tissaAchievement .right .achievement ul{
@@ -1436,8 +1441,8 @@ img{
     }
 
     .tissaAchievement .right .achievement ul li.item .icon{
-        width: 44px;
-        height: 44px;
+        width: 35px;
+        height: 35px;
     }
 
     .tissaAchievement .right .achievement ul li.item .icon img{
@@ -1611,7 +1616,7 @@ img{
     }
 }
 
-@media (min-width: 769px){
+@media (min-width: 1001px){
     .hero{
         flex-direction: row;
         flex-wrap: wrap-reverse;
@@ -1621,7 +1626,9 @@ img{
     .hero .left{
         width: 45%;
     }
+}
 
+@media (min-width: 769px){
     .aboutTissa,
     .tissaFeature,
     .tissaOrganization,
@@ -1883,6 +1890,9 @@ img{
         color: #fff;
         font-size: 22px;
     }
+    .tissaAchievement .right .main-contact-title{
+        transform: translateY(100px);
+    }
     .tissaAchievement .right .achievement ul li.item .content .description{
         color: #fff;
 
@@ -1942,13 +1952,13 @@ img{
         padding: 0.5cqw 0.6cqw;
     }
     .download-tip p{
-        font-size: clamp(7px, 0.78cqw, 10px);
+        font-size: clamp(7px, 2cqw, 10px);
         line-height: 1.45;
     }
     .download-btn{
         min-height: 7.2cqw;
         padding: 0.5cqw 1cqw;
-        font-size: clamp(7px, 0.85cqw, 10px);
+        font-size: clamp(5px, 0.85cqw, 10px);
     }
     .download-btn img{
         width: 4.6cqw;
