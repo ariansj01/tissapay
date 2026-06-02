@@ -290,6 +290,24 @@ body{
     color: #fff;
 }
 
+@media (min-width: 1001px){
+    .tissaProduct{
+        height: 410px;
+    }
+
+    .tissaProduct .tab-panels{
+        flex: 1;
+        width: 100%;
+        min-height: 0;
+    }
+
+    .tissaProduct .tab-panel{
+        height: 100%;
+        overflow-y: auto;
+        padding-inline-end: 10px;
+    }
+}
+
 .tissaProduct::before {
     content: "";
     position: absolute;
