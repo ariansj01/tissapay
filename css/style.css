@@ -1413,7 +1413,7 @@ body{
     }
     .download-actions{
         flex-direction: column;
-        bottom: 13%;
+        bottom: -13%;
     }
     .download-orbit , .download-hub{
         top: 30%;
@@ -2046,8 +2046,8 @@ img{
     }
     .download-btn{
         min-height: 7.2cqw;
-        padding: 0.5cqw 1cqw;
-        font-size: clamp(5px, 0.85cqw, 10px);
+        padding: 0.5cqw 5cqw;
+        font-size: clamp(5px, 3cqw, 10px);
     }
     .download-btn img{
         width: 4.6cqw;
