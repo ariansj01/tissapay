@@ -369,6 +369,74 @@ function initFeatureCardsSlider(slider) {
   }
 }
 
+function initHeroBadgeParallax(container) {
+  const badge = container.querySelector('.badge');
+  if (!badge) return;
+
+  const desktopQuery = window.matchMedia('(min-width: 1001px)');
+  const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+  const maxOffset = 14;
+  let targetX = 0;
+  let targetY = 0;
+  let currentX = 0;
+  let currentY = 0;
+
+  const resetParallax = () => {
+    badge.style.setProperty('--parallax-x', '0px');
+    badge.style.setProperty('--parallax-y', '0px');
+  };
+
+  const onMouseMove = (event) => {
+    if (!desktopQuery.matches || reducedMotion.matches) return;
+
+    const rect = container.getBoundingClientRect();
+    const halfW = rect.width / 2;
+    const halfH = rect.height / 2;
+    if (!halfW || !halfH) return;
+
+    const nx = Math.max(-1, Math.min(1, (event.clientX - rect.left - halfW) / halfW));
+    const ny = Math.max(-1, Math.min(1, (event.clientY - rect.top - halfH) / halfH));
+    targetX = nx;
+    targetY = ny;
+  };
+
+  const onMouseLeave = () => {
+    targetX = 0;
+    targetY = 0;
+  };
+
+  const tick = () => {
+    if (desktopQuery.matches && !reducedMotion.matches) {
+      currentX += (targetX - currentX) * 0.1;
+      currentY += (targetY - currentY) * 0.1;
+      badge.style.setProperty('--parallax-x', `${(currentX * maxOffset).toFixed(2)}px`);
+      badge.style.setProperty('--parallax-y', `${(currentY * maxOffset).toFixed(2)}px`);
+    } else {
+      currentX = 0;
+      currentY = 0;
+      targetX = 0;
+      targetY = 0;
+      resetParallax();
+    }
+
+    requestAnimationFrame(tick);
+  };
+
+  container.addEventListener('mousemove', onMouseMove);
+  container.addEventListener('mouseleave', onMouseLeave);
+
+  if (typeof desktopQuery.addEventListener === 'function') {
+    desktopQuery.addEventListener('change', () => {
+      if (!desktopQuery.matches) {
+        onMouseLeave();
+        resetParallax();
+      }
+    });
+  }
+
+  requestAnimationFrame(tick);
+}
+
 function initSupportersOrbitParallax(section) {
   const uprights = [...section.querySelectorAll('.brand-upright')];
   if (!uprights.length) return;
@@ -498,7 +566,127 @@ function initSupportersOrbit(brandsRoot) {
 }
 
 window.addEventListener('load', () => {
+  // Parallax effect disabled for badge - should only animate on click
+  // document.querySelectorAll('[data-hero-parallax]').forEach(initHeroBadgeParallax);
   document.querySelectorAll('[data-supporters-slider]').forEach(initSupportersSlider);
   document.querySelectorAll('[data-feature-slider]').forEach(initFeatureCardsSlider);
   document.querySelectorAll('[data-supporters-orbit]').forEach(initSupportersOrbit);
+  
+  // Initialize hero image animations
+  initHeroImageAnimations();
 });
+
+/**
+ * Hero Image Click and Mouse Move Animations
+ */
+function initHeroImageAnimations() {
+  const badge = document.querySelector('.hero .left .badge');
+  const heroImage = document.querySelector('.hero .left .image');
+
+  if (!badge || !heroImage) return;
+
+  const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+
+  // Click animation on badge only
+  badge.addEventListener('click', (e) => {
+    e.preventDefault();
+    badge.classList.remove('badge-click-animation');
+    void badge.offsetWidth;
+    badge.classList.add('badge-click-animation');
+    setTimeout(() => {
+      badge.classList.remove('badge-click-animation');
+    }, 500);
+  });
+
+  let rotateX = 0;
+  let rotateY = 0;
+  let translateZ = 0;
+  let scale = 1;
+  let targetRotateX = 0;
+  let targetRotateY = 0;
+  let targetTranslateZ = 0;
+  let targetScale = 1;
+
+  const getPointerPosition = (event) => {
+    if (event.touches && event.touches.length) {
+      return { x: event.touches[0].clientX, y: event.touches[0].clientY };
+    }
+    if (event.changedTouches && event.changedTouches.length) {
+      return { x: event.changedTouches[0].clientX, y: event.changedTouches[0].clientY };
+    }
+    return { x: event.clientX, y: event.clientY };
+  };
+
+  const onPointerMove = (event) => {
+    if (reducedMotion.matches) return;
+    const pos = getPointerPosition(event);
+    if (!pos) return;
+
+    const rect = heroImage.getBoundingClientRect();
+    if (!rect.width || !rect.height) return;
+
+    const centerX = rect.left + rect.width / 2;
+    const centerY = rect.top + rect.height / 2;
+    const deltaX = pos.x - centerX;
+    const deltaY = pos.y - centerY;
+    const maxDistance = Math.max(rect.width, rect.height) / 2;
+    const normalizedX = Math.max(-1, Math.min(1, deltaX / maxDistance));
+    const normalizedY = Math.max(-1, Math.min(1, deltaY / maxDistance));
+    const magnitude = Math.hypot(normalizedX, normalizedY);
+
+    targetRotateX = -normalizedY * 18;
+    targetRotateY = normalizedX * 18;
+    targetTranslateZ = 10 + magnitude * 18;
+    targetScale = 1 + Math.min(0.08, magnitude * 0.06);
+
+    heroImage.classList.add('mouse-move-animation');
+  };
+
+  const onPointerEnd = () => {
+    targetRotateX = 0;
+    targetRotateY = 0;
+    targetTranslateZ = 0;
+    targetScale = 1;
+  };
+
+  const tick = () => {
+    if (!reducedMotion.matches) {
+      rotateX += (targetRotateX - rotateX) * 0.12;
+      rotateY += (targetRotateY - rotateY) * 0.12;
+      translateZ += (targetTranslateZ - translateZ) * 0.12;
+      scale += (targetScale - scale) * 0.12;
+
+      heroImage.style.setProperty('--rotate-x', `${rotateX.toFixed(2)}deg`);
+      heroImage.style.setProperty('--rotate-y', `${rotateY.toFixed(2)}deg`);
+      heroImage.style.setProperty('--translate-z', `${translateZ.toFixed(2)}px`);
+      heroImage.style.setProperty('--hover-scale', `${scale.toFixed(3)}`);
+    }
+
+    requestAnimationFrame(tick);
+  };
+
+  // Pointer and touch events for all devices
+  document.addEventListener('pointermove', onPointerMove, { passive: true });
+  document.addEventListener('touchmove', onPointerMove, { passive: true });
+  
+  // End animation when pointer leaves or touch ends
+  document.addEventListener('pointerup', onPointerEnd);
+  document.addEventListener('pointerleave', onPointerEnd);
+  document.addEventListener('pointercancel', onPointerEnd);
+  document.addEventListener('touchend', onPointerEnd, { passive: true });
+  document.addEventListener('touchcancel', onPointerEnd, { passive: true });
+  window.addEventListener('blur', onPointerEnd);
+
+  if (typeof reducedMotion.addEventListener === 'function') {
+    reducedMotion.addEventListener('change', () => {
+      if (reducedMotion.matches) {
+        targetRotateX = 0;
+        targetRotateY = 0;
+        targetTranslateZ = 0;
+        targetScale = 1;
+      }
+    });
+  }
+
+  requestAnimationFrame(tick);
+}

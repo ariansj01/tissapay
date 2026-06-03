@@ -124,7 +124,7 @@ body{
     background-position: center;
     background-repeat: no-repeat;
     opacity: 0.2;
-    z-index: 0;
+    z-index: -2;
 }
 
 .hero .right .title{
@@ -177,8 +177,8 @@ body{
 }
 .hero .left .textbox{
     position: absolute;
-    top: 15.7%;
-    right: 0;
+    top: 0.5%;
+    right: -30%;
     left: auto;
     width: 40%;
     min-width: 6.75rem;
@@ -212,17 +212,42 @@ body{
 }
 .hero .left .badge{
     position: absolute;
-    top: 12.1%;
-    left: 5%;
+    top: 1%;
+    left: 0%;
     width: 29.75%;
     max-width: 7.4375rem;
     z-index: 2;
     line-height: 0;
+    cursor: pointer;
+    will-change: transform;
+    transform: translate(var(--parallax-x, 0px), var(--parallax-y, 0px));
+    -webkit-tap-highlight-color: transparent;
 }
 .hero .left .badge img{
     width: 100%;
     height: auto;
     display: block;
+    pointer-events: none;
+    transition: transform 0.25s ease, filter 0.25s ease;
+    transform-origin: center center;
+}
+.hero .left .badge:hover img{
+    transform: scale(1);
+    filter: none;
+}
+.hero .left .badge:active img{
+    transform: scale(1);
+    filter: none;
+}
+@media (prefers-reduced-motion: reduce){
+    .hero .left .badge{
+        transform: none;
+    }
+    .hero .left .badge:hover img,
+    .hero .left .badge:active img{
+        transform: none;
+        filter: none;
+    }
 }
 .aboutTissa{
     border-radius: var(--sections-border-radius);
@@ -508,6 +533,9 @@ body{
     text-align: center;
     color: var(--title-color);
     padding-bottom: 15px;
+}
+.tissaFeature .feature-cards-track .cart{
+    border: 0;
 }
 .tissaFeature .left .cart .title{
     font-size: 15px;
@@ -1688,6 +1716,51 @@ img{
     to{
         transform: translateX(calc(-1 * var(--scroll-distance, 50%)));
     }
+}
+
+/* ===== Hero Image Animations ===== */
+@keyframes badge-click-scale {
+    0% {
+        transform: translate(var(--parallax-x, 0px), var(--parallax-y, 0px)) scale(1);
+    }
+    50% {
+        transform: translate(var(--parallax-x, 0px), var(--parallax-y, 0px)) scale(1.25);
+    }
+    100% {
+        transform: translate(var(--parallax-x, 0px), var(--parallax-y, 0px)) scale(1);
+    }
+}
+
+.hero .left .badge.badge-click-animation {
+    animation: badge-click-scale 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+@keyframes click-pop {
+    0% {
+        transform: perspective(900px) rotateX(0deg) rotateY(0deg) translateZ(0px) scale(1);
+    }
+    35% {
+        transform: perspective(900px) rotateX(8deg) rotateY(-12deg) translateZ(12px) scale(1.08);
+    }
+    65% {
+        transform: perspective(900px) rotateX(-6deg) rotateY(8deg) translateZ(6px) scale(0.97);
+    }
+    100% {
+        transform: perspective(900px) rotateX(0deg) rotateY(0deg) translateZ(0px) scale(1);
+    }
+}
+
+.hero .left .image.click-animation {
+    animation: click-pop 0.75s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.hero .left .image {
+    transform-style: preserve-3d;
+    transition: transform 0.16s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.hero .left .image.mouse-move-animation {
+    transform: perspective(900px) rotateX(var(--rotate-x, 0deg)) rotateY(var(--rotate-y, 0deg)) translateZ(var(--translate-z, 0px)) scale(var(--hover-scale, 1));
 }
 
 @media (min-width: 1001px){
