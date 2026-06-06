@@ -152,7 +152,6 @@ body{
     align-items: center;
     min-width: 0;
 }
-/* کانتینر واحد تصویر + textbox + badge — همهٔ موقعیت‌ها درصدی نسبت به همین باکس */
 .hero .hero-visual{
     position: relative;
     width: min(100%, 25rem);
@@ -174,6 +173,11 @@ body{
     object-fit: contain;
     display: block;
     vertical-align: top;
+    transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1), filter 0.4s ease;
+}
+.hero .left .image:hover img{
+    transform: scale(1.08) translateY(-8px);
+    filter: drop-shadow(0 15px 30px rgba(10, 48, 83, 0.2));
 }
 .hero .left .textbox{
     position: absolute;
@@ -260,7 +264,7 @@ body{
 .aboutTissa .bg{
     z-index: -2;
     position: absolute;
-    top: -45px;
+    top: -75px;
     right: -3px;
     width: 100%;
     border-radius: 26px;
@@ -544,6 +548,11 @@ body{
 .tissaFeature .left .cart .description{
     font-size: 12px;
     padding: 0 5px;
+}
+.tissaFeature .left .cart .img{
+    box-shadow: 0 30px 50px rgba(255, 255, 255, 0.4), inset 0 -15px 30px rgba(255, 255, 255, 0.2);
+    border-radius: 15px;
+    display: inline-block;
 }
 .tissaFeature .left .cart .img img{
     border-radius: 15px;
@@ -1116,7 +1125,7 @@ body{
     width: 25px;
 }
 
-/* ——— Hero responsive ——— */
+/* Hero responsive */
 @media (max-width: 1280px){
     .hero .right .title{
         font-size: 58px;
@@ -1478,7 +1487,6 @@ img{
     object-fit: contain;
 }
 
-/* Tablet: 769px – 1000px (شامل portrait) */
 @media (min-width: 769px) and (max-width: 1000px){
     .hero .left{
         width: 100%;
@@ -1718,7 +1726,7 @@ img{
     }
 }
 
-/* ===== Hero Image Animations ===== */
+/* Hero Img Animation */
 @keyframes badge-click-scale {
     0% {
         transform: translate(var(--parallax-x, 0px), var(--parallax-y, 0px)) scale(1);
