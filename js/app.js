@@ -1,7 +1,3 @@
-/**
- * Product tabs — ARIA tab pattern
- * @see https://www.w3.org/WAI/ARIA/apg/patterns/tabs/
- */
 function initProductTabs(root) {
   const tablist = root.querySelector('[role="tablist"]');
   if (!tablist) return;
@@ -226,9 +222,7 @@ function initSupportersSlider(slider) {
       if (event.pointerType === 'mouse' && event.button !== 0) return;
       try {
         slider.setPointerCapture(event.pointerId);
-      } catch {
-        /* ignore */
-      }
+      } catch {}
     }
     userInteracting = true;
     pauseAutoScroll();
@@ -369,74 +363,6 @@ function initFeatureCardsSlider(slider) {
   }
 }
 
-function initHeroBadgeParallax(container) {
-  const badge = container.querySelector('.badge');
-  if (!badge) return;
-
-  const desktopQuery = window.matchMedia('(min-width: 1001px)');
-  const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
-  const maxOffset = 14;
-  let targetX = 0;
-  let targetY = 0;
-  let currentX = 0;
-  let currentY = 0;
-
-  const resetParallax = () => {
-    badge.style.setProperty('--parallax-x', '0px');
-    badge.style.setProperty('--parallax-y', '0px');
-  };
-
-  const onMouseMove = (event) => {
-    if (!desktopQuery.matches || reducedMotion.matches) return;
-
-    const rect = container.getBoundingClientRect();
-    const halfW = rect.width / 2;
-    const halfH = rect.height / 2;
-    if (!halfW || !halfH) return;
-
-    const nx = Math.max(-1, Math.min(1, (event.clientX - rect.left - halfW) / halfW));
-    const ny = Math.max(-1, Math.min(1, (event.clientY - rect.top - halfH) / halfH));
-    targetX = nx;
-    targetY = ny;
-  };
-
-  const onMouseLeave = () => {
-    targetX = 0;
-    targetY = 0;
-  };
-
-  const tick = () => {
-    if (desktopQuery.matches && !reducedMotion.matches) {
-      currentX += (targetX - currentX) * 0.1;
-      currentY += (targetY - currentY) * 0.1;
-      badge.style.setProperty('--parallax-x', `${(currentX * maxOffset).toFixed(2)}px`);
-      badge.style.setProperty('--parallax-y', `${(currentY * maxOffset).toFixed(2)}px`);
-    } else {
-      currentX = 0;
-      currentY = 0;
-      targetX = 0;
-      targetY = 0;
-      resetParallax();
-    }
-
-    requestAnimationFrame(tick);
-  };
-
-  container.addEventListener('mousemove', onMouseMove);
-  container.addEventListener('mouseleave', onMouseLeave);
-
-  if (typeof desktopQuery.addEventListener === 'function') {
-    desktopQuery.addEventListener('change', () => {
-      if (!desktopQuery.matches) {
-        onMouseLeave();
-        resetParallax();
-      }
-    });
-  }
-
-  requestAnimationFrame(tick);
-}
-
 function initSupportersOrbitParallax(section) {
   const uprights = [...section.querySelectorAll('.brand-upright')];
   if (!uprights.length) return;
@@ -566,19 +492,12 @@ function initSupportersOrbit(brandsRoot) {
 }
 
 window.addEventListener('load', () => {
-  // Parallax effect disabled for badge - should only animate on click
-  // document.querySelectorAll('[data-hero-parallax]').forEach(initHeroBadgeParallax);
   document.querySelectorAll('[data-supporters-slider]').forEach(initSupportersSlider);
   document.querySelectorAll('[data-feature-slider]').forEach(initFeatureCardsSlider);
   document.querySelectorAll('[data-supporters-orbit]').forEach(initSupportersOrbit);
-  
-  // Initialize hero image animations
   initHeroImageAnimations();
 });
 
-/**
- * Hero Image Click and Mouse Move Animations
- */
 function initHeroImageAnimations() {
   const badge = document.querySelector('.hero .left .badge');
   const heroImage = document.querySelector('.hero .left .image');
@@ -587,7 +506,6 @@ function initHeroImageAnimations() {
 
   const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
 
-  // Click animation on badge only
   badge.addEventListener('click', (e) => {
     e.preventDefault();
     badge.classList.remove('badge-click-animation');
@@ -665,11 +583,8 @@ function initHeroImageAnimations() {
     requestAnimationFrame(tick);
   };
 
-  // Pointer and touch events for all devices
   document.addEventListener('pointermove', onPointerMove, { passive: true });
   document.addEventListener('touchmove', onPointerMove, { passive: true });
-  
-  // End animation when pointer leaves or touch ends
   document.addEventListener('pointerup', onPointerEnd);
   document.addEventListener('pointerleave', onPointerEnd);
   document.addEventListener('pointercancel', onPointerEnd);
