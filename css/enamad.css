@@ -1,38 +1,46 @@
 /* ===== eNamad (اینماد) Trust Seal – Footer ===== */
 
+/*
+ * Root fix: .footer .left had no align-items, so the mix of bare <img>
+ * flex items and <a>-wrapped icons was inconsistently aligned.
+ * Setting align-items: center fixes all children in one shot.
+ */
+.footer .left {
+    align-items: center;
+}
+
+/*
+ * Normalise every direct flex child of .footer .left so they all sit
+ * on the same baseline: bare <img> tags become block, <a> tags become
+ * inline-flex containers — both vertically centred, no extra whitespace.
+ */
+.footer .left > img {
+    display: block;
+    flex-shrink: 0;
+    align-self: center;
+}
+
+.footer .left > a {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    line-height: 0;
+    flex-shrink: 0;
+}
+
 /* Thin vertical divider separating social icons from eNamad badge */
 .footer-divider {
-    display: inline-block;
+    display: block;
     width: 1px;
-    height: 28px;
+    height: 24px;
     background: rgba(255, 255, 255, 0.25);
+    flex-shrink: 0;
     align-self: center;
-    flex-shrink: 0;
 }
 
 /*
- * Fix: align all <a> tags inside footer .left consistently.
- * The LinkedIn <a> was the only non-img flex child before; adding
- * footer-enamad (inline-flex) revealed its missing alignment.
- */
-.footer .left a {
-    display: inline-flex;
-    align-items: center;
-    line-height: 0;
-    flex-shrink: 0;
-}
-
-/* Badge wrapper */
-.footer-enamad {
-    display: inline-flex;
-    align-items: center;
-    flex-shrink: 0;
-    line-height: 0;
-}
-
-/*
- * Override the generic rule: .footer .left img { width: 25px }
- * Higher specificity (3 classes + 1 element) wins cleanly — no !important needed.
+ * eNamad image — overrides the generic .footer .left img { width: 25px }
+ * Higher specificity (3 classes + 1 element) wins without !important.
  */
 .footer .left .footer-enamad img {
     width: auto;
@@ -56,14 +64,9 @@
 }
 
 /* ── Mobile (≤768 px) ────────────────────── */
-/*
- * On mobile the footer already stacks to column and .footer .left
- * centres its children, so no extra layout change is needed.
- * Divider rotates to horizontal to read naturally in column flow.
- */
 @media (max-width: 768px) {
     .footer-divider {
-        width: 28px;
+        width: 24px;
         height: 1px;
     }
 
