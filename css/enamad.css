@@ -1,0 +1,61 @@
+/* ===== eNamad (اینماد) Trust Seal – Footer ===== */
+
+/* Thin vertical divider separating social icons from eNamad badge */
+.footer-divider {
+    display: inline-block;
+    width: 1px;
+    height: 28px;
+    background: rgba(255, 255, 255, 0.25);
+    align-self: center;
+    flex-shrink: 0;
+}
+
+/* Badge wrapper */
+.footer-enamad {
+    display: inline-flex;
+    align-items: center;
+    flex-shrink: 0;
+    line-height: 0;
+}
+
+/*
+ * Override the generic rule: .footer .left img { width: 25px }
+ * Higher specificity (3 classes + 1 element) wins cleanly — no !important needed.
+ */
+.footer .left .footer-enamad img {
+    width: auto;
+    height: 40px;
+    border-radius: 6px;
+    object-fit: contain;
+    display: block;
+    transition: opacity 0.2s ease;
+    cursor: pointer;
+}
+
+.footer-enamad:hover img {
+    opacity: 0.82;
+}
+
+/* ── Tablet (≤1024 px) ───────────────────── */
+@media (max-width: 1024px) {
+    .footer .left .footer-enamad img {
+        height: 36px;
+    }
+}
+
+/* ── Mobile (≤768 px) ────────────────────── */
+/*
+ * On mobile the footer already stacks to column and .footer .left
+ * centres its children, so no extra layout change is needed.
+ * Divider rotates to horizontal to read naturally in column flow.
+ */
+@media (max-width: 768px) {
+    .footer-divider {
+        width: 28px;
+        height: 1px;
+    }
+
+    .footer .left .footer-enamad img {
+        height: 38px;
+    }
+}
