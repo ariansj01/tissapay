@@ -10,6 +10,18 @@
     flex-shrink: 0;
 }
 
+/*
+ * Fix: align all <a> tags inside footer .left consistently.
+ * The LinkedIn <a> was the only non-img flex child before; adding
+ * footer-enamad (inline-flex) revealed its missing alignment.
+ */
+.footer .left a {
+    display: inline-flex;
+    align-items: center;
+    line-height: 0;
+    flex-shrink: 0;
+}
+
 /* Badge wrapper */
 .footer-enamad {
     display: inline-flex;
