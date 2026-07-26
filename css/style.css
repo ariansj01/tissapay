@@ -2173,3 +2173,188 @@ img{
         transform: translateX(0px);
     }
 }
+
+.merchantRegistration{
+    margin-top: 10%;
+    position: relative;
+    overflow: hidden;
+    justify-content: space-between;
+    align-items: stretch;
+    gap: clamp(24px, 4vw, 52px);
+    width: 100%;
+    padding: clamp(28px, 5vw, 58px);
+    border-radius: var(--sections-border-radius);
+    background:
+        radial-gradient(circle at 12% 18%, rgba(19, 115, 184, 0.16), transparent 28%),
+        linear-gradient(135deg, #eef3f7 0%, #ffffff 52%, #eaf1ff 100%);
+}
+.merchantRegistration::before{
+    content: "";
+    position: absolute;
+    inset: 18px;
+    border: 1px solid rgba(10, 48, 131, 0.10);
+    border-radius: calc(var(--sections-border-radius) - 12px);
+    pointer-events: none;
+}
+.merchantRegistration__content,
+.merchantRegistration__formWrap{
+    position: relative;
+    z-index: 1;
+}
+.merchantRegistration__content{
+    width: min(44%, 470px);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+.merchantRegistration__eyebrow{
+    color: #1373b8;
+    font-size: 13px;
+    font-weight: 700;
+    margin-bottom: 12px;
+}
+.merchantRegistration .title{
+    color: var(--title-color);
+    font-size: clamp(28px, 3.2vw, 42px);
+    line-height: 1.45;
+    margin-bottom: 14px;
+}
+.merchantRegistration .description{
+    color: var(--text-color);
+    font-size: 15px;
+    line-height: 2;
+}
+.merchantRegistration__steps{
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-top: 24px;
+}
+.merchantRegistration__steps span{
+    background: rgba(1, 1, 144, 0.07);
+    color: #04226b;
+    border: 1px solid rgba(1, 1, 144, 0.10);
+    border-radius: 999px;
+    padding: 8px 12px;
+    font-size: 12px;
+    font-weight: 700;
+}
+.merchantRegistration__formWrap{
+    width: min(50%, 520px);
+    background: rgba(255, 255, 255, 0.82);
+    border: 1px solid rgba(10, 48, 131, 0.12);
+    border-radius: var(--images-border-radius);
+    padding: clamp(18px, 3vw, 30px);
+    box-shadow: 0 18px 46px rgba(10, 48, 83, 0.10);
+    backdrop-filter: blur(10px);
+}
+.merchantRegistration__form{
+    display: grid;
+    gap: 16px;
+}
+.merchantRegistration__field{
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+.merchantRegistration__field label{
+    color: #04226b;
+    font-size: 13px;
+    font-weight: 700;
+}
+.merchantRegistration__field input{
+    width: 100%;
+    min-height: 48px;
+    border: 1px solid #d9dee7;
+    border-radius: 14px;
+    background: #fff;
+    color: #021235;
+    font: inherit;
+    padding: 0 14px;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+.merchantRegistration__field input:focus{
+    border-color: #1373b8;
+    box-shadow: 0 0 0 4px rgba(19, 115, 184, 0.12);
+}
+.merchantRegistration__field.is-invalid input{
+    border-color: #dc2626;
+    box-shadow: 0 0 0 4px rgba(220, 38, 38, 0.10);
+}
+.merchantRegistration__error,
+.merchantRegistration__submitError{
+    min-height: 18px;
+    color: #dc2626;
+    font-size: 12px;
+    line-height: 1.6;
+}
+.merchantRegistration__submitError{
+    text-align: center;
+}
+.merchantRegistration__submit{
+    min-height: 50px;
+    border: none;
+    border-radius: 16px;
+    background: linear-gradient(90deg, #003b8f 0%, var(--title-color) 100%);
+    color: #fff;
+    font: inherit;
+    font-weight: 800;
+    cursor: pointer;
+    box-shadow: 0 10px 24px rgba(0, 80, 180, 0.24);
+    transition: transform 0.2s ease, opacity 0.2s ease;
+}
+.merchantRegistration__submit:not(:disabled):hover{
+    transform: translateY(-2px);
+}
+.merchantRegistration__submit:disabled{
+    cursor: not-allowed;
+    opacity: 0.48;
+    box-shadow: none;
+}
+.merchantRegistration__honeypot{
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    opacity: 0;
+    pointer-events: none;
+}
+.merchantRegistration__success{
+    min-height: 100%;
+    display: grid;
+    place-content: center;
+    text-align: center;
+    gap: 12px;
+    color: #04226b;
+}
+.merchantRegistration__success[hidden]{
+    display: none;
+}
+.merchantRegistration__success h3{
+    color: var(--title-color);
+    font-size: 26px;
+}
+.merchantRegistration__success p{
+    color: var(--text-color);
+    line-height: 2;
+}
+
+@media (max-width: 768px){
+    .merchantRegistration{
+        flex-direction: column;
+        padding: 24px 16px;
+        gap: 20px;
+    }
+    .merchantRegistration__content,
+    .merchantRegistration__formWrap{
+        width: 100%;
+    }
+    .merchantRegistration .title{
+        font-size: 24px;
+    }
+    .merchantRegistration .description{
+        font-size: 13px;
+    }
+    .merchantRegistration__formWrap{
+        padding: 18px 14px;
+    }
+}

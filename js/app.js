@@ -605,3 +605,119 @@ function initHeroImageAnimations() {
 
   requestAnimationFrame(tick);
 }
+
+function initMerchantRegistrationForm() {
+  const form = document.querySelector('[data-merchant-registration-form]');
+  if (!form) return;
+
+  const endpoint = 'https://store.tisapay.com/api/merchant-registration-requests';
+  const successCard = document.querySelector('[data-merchant-registration-success]');
+  const submitButton = form.querySelector('.merchantRegistration__submit');
+  const submitError = form.querySelector('[data-submit-error]');
+  const fields = {
+    full_name: form.querySelector('[data-field="full_name"]'),
+    mobile: form.querySelector('[data-field="mobile"]'),
+    company_name: form.querySelector('[data-field="company_name"]'),
+  };
+  const errors = {
+    full_name: 'نام و نام خانوادگی الزامی است.',
+    mobile: 'شماره تماس وارد شده صحیح نیست.',
+    company_name: 'نام مجموعه الزامی است.',
+  };
+
+  const normalizeDigits = (value) => String(value || '')
+    .replace(/[۰-۹]/g, (digit) => '۰۱۲۳۴۵۶۷۸۹'.indexOf(digit))
+    .replace(/[٠-٩]/g, (digit) => '٠١٢٣٤٥٦٧٨٩'.indexOf(digit));
+
+  const normalizeMobile = (value) => {
+    let mobile = normalizeDigits(value).replace(/[\s-]/g, '').trim();
+    if (mobile.startsWith('+98')) mobile = `0${mobile.slice(3)}`;
+    if (mobile.startsWith('98') && mobile.length === 12) mobile = `0${mobile.slice(2)}`;
+    return mobile;
+  };
+
+  const validate = ({ showErrors = false } = {}) => {
+    const values = {
+      full_name: fields.full_name.value.trim(),
+      mobile: normalizeMobile(fields.mobile.value),
+      company_name: fields.company_name.value.trim(),
+    };
+    const invalid = {
+      full_name: values.full_name.length < 2,
+      mobile: !/^09\d{9}$/.test(values.mobile),
+      company_name: values.company_name.length < 2,
+    };
+
+    Object.entries(invalid).forEach(([name, hasError]) => {
+      const fieldWrap = fields[name].closest('.merchantRegistration__field');
+      const errorEl = form.querySelector(`[data-error-for="${name}"]`);
+      fieldWrap.classList.toggle('is-invalid', showErrors && hasError);
+      errorEl.textContent = showErrors && hasError ? errors[name] : '';
+    });
+
+    const isValid = !Object.values(invalid).some(Boolean);
+    submitButton.disabled = !isValid;
+    return { isValid, values, invalid };
+  };
+
+  Object.values(fields).forEach((field) => {
+    field.addEventListener('input', () => {
+      submitError.textContent = '';
+      validate({ showErrors: true });
+    });
+    field.addEventListener('blur', () => validate({ showErrors: true }));
+  });
+
+  form.addEventListener('submit', async (event) => {
+    event.preventDefault();
+    const result = validate({ showErrors: true });
+    if (!result.isValid) {
+      const firstInvalid = Object.entries(result.invalid).find(([, invalid]) => invalid)?.[0];
+      if (firstInvalid) fields[firstInvalid].focus();
+      return;
+    }
+
+    submitButton.disabled = true;
+    submitButton.textContent = 'در حال ثبت...';
+    submitError.textContent = '';
+
+    try {
+      const response = await fetch(endpoint, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          full_name: result.values.full_name,
+          mobile: result.values.mobile,
+          company_name: result.values.company_name,
+          website: form.elements.website?.value || '',
+        }),
+      });
+      const data = await response.json().catch(() => null);
+      if (!response.ok || !data?.success) {
+        const apiErrors = data?.errors || {};
+        Object.entries(apiErrors).forEach(([name, message]) => {
+          if (!fields[name]) return;
+          fields[name].closest('.merchantRegistration__field').classList.add('is-invalid');
+          form.querySelector(`[data-error-for="${name}"]`).textContent = message;
+        });
+        const firstApiError = Object.keys(apiErrors).find((name) => fields[name]);
+        if (firstApiError) fields[firstApiError].focus();
+        submitError.textContent = firstApiError ? '' : 'ثبت درخواست ناموفق بود. لطفاً دوباره تلاش کنید.';
+        return;
+      }
+
+      form.reset();
+      form.hidden = true;
+      if (successCard) successCard.hidden = false;
+    } catch {
+      submitError.textContent = 'ارتباط با سرور برقرار نشد. لطفاً چند لحظه دیگر دوباره تلاش کنید.';
+    } finally {
+      submitButton.textContent = 'ثبت درخواست همکاری';
+      validate({ showErrors: false });
+    }
+  });
+
+  validate({ showErrors: false });
+}
+
+initMerchantRegistrationForm();
