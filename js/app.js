@@ -612,9 +612,10 @@ function initMerchantRegistrationForm() {
   if (!form) return;
 
   const endpoint = 'https://store.tisapay.com/api/merchant-registration-requests';
-  const toggleButton = document.querySelector('[data-merchant-registration-toggle]');
-  const formPanel = document.getElementById('merchant-registration-form-panel');
-  const successCard = document.querySelector('[data-merchant-registration-success]');
+  const openButton = document.querySelector('[data-merchant-registration-open]');
+  const modal = document.querySelector('[data-merchant-registration-modal]');
+  const closeControls = document.querySelectorAll('[data-merchant-registration-close]');
+  const statusMessage = document.querySelector('[data-merchant-registration-status]');
   const submitButton = form.querySelector('.merchantRegistration__submit');
   const defaultSubmitText = submitButton?.dataset.defaultText || 'ثبت درخواست همکاری';
   const submitError = form.querySelector('[data-submit-error]');
@@ -622,6 +623,7 @@ function initMerchantRegistrationForm() {
     full_name: form.querySelector('[data-field="full_name"]'),
     mobile: form.querySelector('[data-field="mobile"]'),
     company_name: form.querySelector('[data-field="company_name"]'),
+    description: form.querySelector('[data-field="description"]'),
   };
   const errors = {
     full_name: 'نام و نام خانوادگی الزامی است.',
@@ -629,20 +631,24 @@ function initMerchantRegistrationForm() {
     company_name: 'نام مجموعه الزامی است.',
   };
 
-  const openForm = () => {
-    section?.classList.add('is-open');
-    toggleButton?.setAttribute('aria-expanded', 'true');
-    formPanel?.setAttribute('aria-hidden', 'false');
-    window.setTimeout(() => fields.full_name?.focus(), 260);
+  const openModal = () => {
+    modal?.classList.add('is-open');
+    modal?.setAttribute('aria-hidden', 'false');
+    document.body.classList.add('merchant-modal-open');
+    window.setTimeout(() => fields.full_name?.focus(), 220);
   };
 
-  toggleButton?.addEventListener('click', () => {
-    const isOpen = section?.classList.contains('is-open');
-    if (isOpen) {
-      fields.full_name?.focus();
-      return;
-    }
-    openForm();
+  const closeModal = () => {
+    modal?.classList.remove('is-open');
+    modal?.setAttribute('aria-hidden', 'true');
+    document.body.classList.remove('merchant-modal-open');
+    openButton?.focus();
+  };
+
+  openButton?.addEventListener('click', openModal);
+  closeControls.forEach((control) => control.addEventListener('click', closeModal));
+  document.addEventListener('keydown', (event) => {
+    if (event.key === 'Escape' && modal?.classList.contains('is-open')) closeModal();
   });
 
   const normalizeDigits = (value) => String(value || '')
@@ -661,6 +667,7 @@ function initMerchantRegistrationForm() {
       full_name: fields.full_name.value.trim(),
       mobile: normalizeMobile(fields.mobile.value),
       company_name: fields.company_name.value.trim(),
+      description: fields.description.value.trim(),
     };
     const invalid = {
       full_name: values.full_name.length < 2,
@@ -685,7 +692,9 @@ function initMerchantRegistrationForm() {
       submitError.textContent = '';
       validate({ showErrors: true });
     });
-    field.addEventListener('blur', () => validate({ showErrors: true }));
+    if (field.dataset.field !== 'description') {
+      field.addEventListener('blur', () => validate({ showErrors: true }));
+    }
   });
 
   form.addEventListener('submit', async (event) => {
@@ -709,6 +718,7 @@ function initMerchantRegistrationForm() {
           full_name: result.values.full_name,
           mobile: result.values.mobile,
           company_name: result.values.company_name,
+          description: result.values.description,
           website: form.elements.website?.value || '',
         }),
       });
@@ -727,10 +737,10 @@ function initMerchantRegistrationForm() {
       }
 
       form.reset();
-      form.hidden = true;
-      toggleButton.hidden = true;
+      closeModal();
+      if (statusMessage) statusMessage.hidden = false;
+      section?.classList.add('is-complete');
       submitError.textContent = '';
-      if (successCard) successCard.hidden = false;
     } catch {
       submitError.textContent = 'ارتباط با سرور برقرار نشد. لطفاً چند لحظه دیگر دوباره تلاش کنید.';
     } finally {

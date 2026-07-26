@@ -2181,39 +2181,47 @@ img{
     flex-direction: column;
     justify-content: center;
     align-items: stretch;
-    gap: 0;
     width: 100%;
-    padding: clamp(24px, 4vw, 42px);
+    padding: clamp(24px, 4vw, 44px);
     border-radius: var(--sections-border-radius);
     background:
-        radial-gradient(circle at 12% 18%, rgba(19, 115, 184, 0.16), transparent 28%),
-        linear-gradient(135deg, #eef3f7 0%, #ffffff 52%, #eaf1ff 100%);
-    transition: box-shadow 0.3s ease, transform 0.3s ease;
+        radial-gradient(circle at 8% 8%, rgba(19, 115, 184, 0.18), transparent 30%),
+        linear-gradient(135deg, #f5f9ff 0%, #ffffff 48%, #edf4ff 100%);
+    box-shadow: 0 24px 70px rgba(5, 24, 82, 0.08);
 }
 .merchantRegistration::before{
     content: "";
     position: absolute;
-    inset: 18px;
+    inset: 16px;
     border: 1px solid rgba(10, 48, 131, 0.10);
     border-radius: calc(var(--sections-border-radius) - 12px);
     pointer-events: none;
 }
-.merchantRegistration__content,
-.merchantRegistration__formWrap{
-    position: relative;
-    z-index: 1;
+.merchantRegistration::after{
+    content: "";
+    position: absolute;
+    left: clamp(24px, 6vw, 80px);
+    top: 50%;
+    width: 96px;
+    height: 96px;
+    border-radius: 28px;
+    background:
+        linear-gradient(135deg, rgba(255,255,255,0.75), rgba(19,115,184,0.10)),
+        linear-gradient(45deg, transparent 46%, rgba(1,1,144,0.18) 47%, rgba(1,1,144,0.18) 53%, transparent 54%);
+    transform: translateY(-50%) rotate(-10deg);
+    box-shadow: 0 20px 48px rgba(0, 59, 143, 0.12);
+    pointer-events: none;
 }
 .merchantRegistration__content{
-    width: 100%;
+    position: relative;
+    z-index: 1;
+    width: min(100%, 880px);
     display: flex;
-    flex-direction: row;
     flex-wrap: wrap;
-    gap: 12px clamp(18px, 4vw, 40px);
+    gap: 14px clamp(18px, 4vw, 40px);
     align-items: center;
-    justify-content: center;
 }
 .merchantRegistration .title{
-    flex: 0 1 auto;
     color: var(--title-color);
     font-size: clamp(24px, 2.7vw, 36px);
     line-height: 1.45;
@@ -2226,32 +2234,56 @@ img{
     line-height: 1.9;
     margin: 0;
 }
-.merchantRegistration__toggle{
-    min-height: 48px;
+.merchantRegistration__toggle,
+.merchantRegistration__submit{
+    min-height: 50px;
     border: none;
     border-radius: 16px;
-    background: linear-gradient(90deg, #003b8f 0%, var(--title-color) 100%);
+    background: linear-gradient(90deg, #002c76 0%, #010190 58%, #1373b8 100%);
     color: #fff;
     font: inherit;
     font-weight: 800;
     cursor: pointer;
-    padding: 0 22px;
-    box-shadow: 0 10px 24px rgba(0, 80, 180, 0.20);
-    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    padding: 0 24px;
+    box-shadow: 0 16px 34px rgba(1, 1, 144, 0.22);
+    transition: transform 0.22s ease, box-shadow 0.22s ease, opacity 0.22s ease;
 }
-.merchantRegistration__toggle:hover{
+.merchantRegistration__toggle:hover,
+.merchantRegistration__submit:not(:disabled):hover{
     transform: translateY(-2px);
-    box-shadow: 0 14px 30px rgba(0, 80, 180, 0.24);
+    box-shadow: 0 20px 42px rgba(1, 1, 144, 0.28);
+}
+.merchantRegistration__toggle:focus-visible,
+.merchantRegistration__submit:focus-visible,
+.merchantRegistration__close:focus-visible,
+.merchantRegistration__field input:focus-visible,
+.merchantRegistration__field textarea:focus-visible{
+    outline: 3px solid rgba(19, 115, 184, 0.24);
+    outline-offset: 3px;
+}
+.merchantRegistration__status{
+    width: 100%;
+    margin: 2px 0 0;
+    padding: 12px 16px;
+    border-radius: 16px;
+    background: rgba(16, 185, 129, 0.10);
+    color: #047857;
+    border: 1px solid rgba(16, 185, 129, 0.18);
+    font-size: 13px;
+    font-weight: 700;
+}
+.merchantRegistration__status[hidden]{
+    display: none;
 }
 .merchantRegistration__steps{
     display: flex;
     flex-wrap: wrap;
     gap: 8px;
     width: 100%;
-    margin-top: 8px;
+    margin-top: 4px;
 }
 .merchantRegistration__steps span{
-    background: rgba(1, 1, 144, 0.07);
+    background: rgba(1, 1, 144, 0.06);
     color: #04226b;
     border: 1px solid rgba(1, 1, 144, 0.10);
     border-radius: 999px;
@@ -2259,40 +2291,102 @@ img{
     font-size: 12px;
     font-weight: 700;
 }
-.merchantRegistration__formWrap{
-    width: min(100%, 620px);
-    max-height: 0;
-    opacity: 0;
-    overflow: hidden;
-    transform: translateY(-8px);
-    margin: 0 auto;
-    padding: 0 clamp(18px, 3vw, 30px);
-    background: rgba(255, 255, 255, 0.82);
-    border: 1px solid rgba(10, 48, 131, 0.12);
-    border-radius: var(--images-border-radius);
-    box-shadow: 0 18px 46px rgba(10, 48, 83, 0.10);
-    backdrop-filter: blur(10px);
+.merchantRegistration__modal{
+    position: fixed;
+    inset: 0;
+    z-index: 999;
+    display: grid;
+    justify-items: end;
     pointer-events: none;
-    transition:
-        max-height 0.45s ease,
-        opacity 0.3s ease,
-        transform 0.35s ease,
-        margin-top 0.35s ease,
-        padding-top 0.35s ease,
-        padding-bottom 0.35s ease;
+    visibility: hidden;
 }
-.merchantRegistration.is-open .merchantRegistration__formWrap{
-    max-height: 680px;
-    opacity: 1;
-    transform: translateY(0);
-    margin-top: 24px;
-    padding-top: clamp(18px, 3vw, 30px);
-    padding-bottom: clamp(18px, 3vw, 30px);
+.merchantRegistration__modal.is-open{
     pointer-events: auto;
+    visibility: visible;
+}
+.merchantRegistration__backdrop{
+    position: absolute;
+    inset: 0;
+    background: rgba(3, 10, 35, 0.54);
+    opacity: 0;
+    backdrop-filter: blur(0px);
+    transition: opacity 0.4s ease, backdrop-filter 0.4s ease;
+}
+.merchantRegistration__modal.is-open .merchantRegistration__backdrop{
+    opacity: 1;
+    backdrop-filter: blur(8px);
+}
+.merchantRegistration__panel{
+    position: relative;
+    z-index: 1;
+    width: min(92vw, 520px);
+    min-height: 100%;
+    padding: clamp(24px, 4vw, 36px);
+    border-radius: 30px 0 0 30px;
+    background:
+        linear-gradient(160deg, rgba(255,255,255,0.96), rgba(241,247,255,0.94)),
+        radial-gradient(circle at 18% 10%, rgba(19, 115, 184, 0.16), transparent 32%);
+    box-shadow: -30px 0 80px rgba(1, 13, 45, 0.26);
+    border-right: 1px solid rgba(255,255,255,0.55);
+    transform: translateX(36px) scale(0.985);
+    opacity: 0;
+    transition: transform 0.42s cubic-bezier(.16, 1.15, .28, 1), opacity 0.32s ease;
+    overflow-y: auto;
+}
+.merchantRegistration__modal.is-open .merchantRegistration__panel{
+    transform: translateX(0) scale(1);
+    opacity: 1;
+}
+.merchantRegistration__close{
+    position: absolute;
+    top: 18px;
+    left: 18px;
+    width: 42px;
+    height: 42px;
+    border: 1px solid rgba(4, 34, 107, 0.10);
+    border-radius: 14px;
+    background: rgba(255,255,255,0.78);
+    color: #04226b;
+    font-size: 28px;
+    line-height: 1;
+    cursor: pointer;
+}
+.merchantRegistration__panelHead{
+    margin: 26px 0 22px;
+}
+.merchantRegistration__secureBadge{
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 7px 12px;
+    border-radius: 999px;
+    color: #1373b8;
+    background: rgba(19, 115, 184, 0.10);
+    font-size: 12px;
+    font-weight: 800;
+}
+.merchantRegistration__secureBadge::before{
+    content: "";
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: #10b981;
+    box-shadow: 0 0 0 5px rgba(16,185,129,0.14);
+}
+.merchantRegistration__panelHead h3{
+    color: var(--title-color);
+    font-size: clamp(24px, 3vw, 32px);
+    line-height: 1.45;
+    margin: 14px 0 8px;
+}
+.merchantRegistration__panelHead p{
+    color: var(--text-color);
+    line-height: 1.9;
+    font-size: 14px;
 }
 .merchantRegistration__form{
     display: grid;
-    gap: 16px;
+    gap: 15px;
 }
 .merchantRegistration__field{
     display: flex;
@@ -2302,51 +2396,55 @@ img{
 .merchantRegistration__field label{
     color: #04226b;
     font-size: 13px;
-    font-weight: 700;
+    font-weight: 800;
 }
-.merchantRegistration__field input{
+.merchantRegistration__field input,
+.merchantRegistration__field textarea{
     width: 100%;
-    min-height: 48px;
-    border: 1px solid #d9dee7;
-    border-radius: 14px;
-    background: #fff;
+    min-height: 50px;
+    border: 1px solid rgba(10, 48, 131, 0.14);
+    border-radius: 16px;
+    background: rgba(255, 255, 255, 0.88);
     color: #021235;
     font: inherit;
     padding: 0 14px;
-    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
 }
-.merchantRegistration__field input:focus{
+.merchantRegistration__field textarea{
+    min-height: 112px;
+    padding: 12px 14px;
+    resize: vertical;
+}
+.merchantRegistration__field input:focus,
+.merchantRegistration__field textarea:focus{
     border-color: #1373b8;
+    background: #fff;
     box-shadow: 0 0 0 4px rgba(19, 115, 184, 0.12);
 }
-.merchantRegistration__field.is-invalid input{
+.merchantRegistration__field.is-invalid input,
+.merchantRegistration__field.is-invalid textarea{
     border-color: #dc2626;
     box-shadow: 0 0 0 4px rgba(220, 38, 38, 0.10);
 }
 .merchantRegistration__error,
-.merchantRegistration__submitError{
+.merchantRegistration__submitError,
+.merchantRegistration__hint{
     min-height: 18px;
-    color: #dc2626;
     font-size: 12px;
     line-height: 1.6;
+}
+.merchantRegistration__error,
+.merchantRegistration__submitError{
+    color: #dc2626;
+}
+.merchantRegistration__hint{
+    color: #63728a;
 }
 .merchantRegistration__submitError{
     text-align: center;
 }
 .merchantRegistration__submit{
-    min-height: 50px;
-    border: none;
-    border-radius: 16px;
-    background: linear-gradient(90deg, #003b8f 0%, var(--title-color) 100%);
-    color: #fff;
-    font: inherit;
-    font-weight: 800;
-    cursor: pointer;
-    box-shadow: 0 10px 24px rgba(0, 80, 180, 0.24);
-    transition: transform 0.2s ease, opacity 0.2s ease;
-}
-.merchantRegistration__submit:not(:disabled):hover{
-    transform: translateY(-2px);
+    width: 100%;
 }
 .merchantRegistration__submit:disabled{
     cursor: not-allowed;
@@ -2360,32 +2458,27 @@ img{
     opacity: 0;
     pointer-events: none;
 }
-.merchantRegistration__success{
-    min-height: 100%;
-    display: grid;
-    place-content: center;
-    text-align: center;
-    gap: 12px;
-    color: #04226b;
+body.merchant-modal-open{
+    overflow: hidden;
 }
-.merchantRegistration__success[hidden]{
-    display: none;
-}
-.merchantRegistration__success h3{
-    color: var(--title-color);
-    font-size: 26px;
-}
-.merchantRegistration__success p{
-    color: var(--text-color);
-    line-height: 2;
+
+@media (prefers-reduced-motion: reduce){
+    .merchantRegistration__backdrop,
+    .merchantRegistration__panel,
+    .merchantRegistration__toggle,
+    .merchantRegistration__submit{
+        transition: none;
+    }
 }
 
 @media (max-width: 768px){
     .merchantRegistration{
         padding: 24px 16px;
     }
+    .merchantRegistration::after{
+        display: none;
+    }
     .merchantRegistration__content{
-        justify-content: flex-start;
         align-items: stretch;
     }
     .merchantRegistration .title{
@@ -2400,16 +2493,19 @@ img{
     .merchantRegistration__steps{
         justify-content: center;
     }
-    .merchantRegistration__formWrap{
+    .merchantRegistration__modal{
+        align-items: end;
+        justify-items: stretch;
+    }
+    .merchantRegistration__panel{
         width: 100%;
-        padding: 18px 14px;
+        min-height: auto;
+        max-height: 88vh;
+        border-radius: 28px 28px 0 0;
+        transform: translateY(42px) scale(0.985);
+        box-shadow: 0 -26px 70px rgba(1, 13, 45, 0.26);
     }
-    .merchantRegistration__formWrap{
-        padding-top: 0;
-        padding-bottom: 0;
-    }
-    .merchantRegistration.is-open .merchantRegistration__formWrap{
-        padding-top: 18px;
-        padding-bottom: 18px;
+    .merchantRegistration__modal.is-open .merchantRegistration__panel{
+        transform: translateY(0) scale(1);
     }
 }

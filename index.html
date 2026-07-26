@@ -364,9 +364,12 @@
                     <p class="description">
                         برای شروع همکاری با TisaPay اطلاعات مجموعه خود را ثبت کنید تا کارشناسان ما با شما تماس بگیرند.
                     </p>
-                    <button class="merchantRegistration__toggle" type="button" data-merchant-registration-toggle aria-expanded="false" aria-controls="merchant-registration-form-panel">
+                    <button class="merchantRegistration__toggle" type="button" data-merchant-registration-open aria-haspopup="dialog">
                         ثبت درخواست همکاری
                     </button>
+                    <p class="merchantRegistration__status" data-merchant-registration-status hidden>
+                        درخواست شما ثبت شد، کارشناسان TisaPay با شما تماس خواهند گرفت.
+                    </p>
                     <div class="merchantRegistration__steps" aria-label="مراحل بررسی درخواست">
                         <span>ثبت درخواست</span>
                         <span>بررسی کارشناسان</span>
@@ -374,35 +377,41 @@
                     </div>
                 </div>
 
-                <div class="merchantRegistration__formWrap" id="merchant-registration-form-panel" aria-hidden="true">
-                    <form class="merchantRegistration__form" data-merchant-registration-form novalidate>
-                        <div class="merchantRegistration__field">
-                            <label for="merchant-full-name">نام و نام خانوادگی</label>
-                            <input id="merchant-full-name" name="full_name" type="text" autocomplete="name" data-field="full_name">
-                            <p class="merchantRegistration__error" data-error-for="full_name"></p>
+                <div class="merchantRegistration__modal" data-merchant-registration-modal aria-hidden="true">
+                    <div class="merchantRegistration__backdrop" data-merchant-registration-close></div>
+                    <aside class="merchantRegistration__panel" role="dialog" aria-modal="true" aria-labelledby="merchant-registration-modal-title">
+                        <button class="merchantRegistration__close" type="button" data-merchant-registration-close aria-label="بستن فرم">×</button>
+                        <div class="merchantRegistration__panelHead">
+                            <span class="merchantRegistration__secureBadge">ثبت امن درخواست</span>
+                            <h3 id="merchant-registration-modal-title">شروع همکاری با TisaPay</h3>
+                            <p>اطلاعات مجموعه خود را وارد کنید؛ تیم پذیرندگان تیساپی مسیر همکاری را با شما هماهنگ می‌کند.</p>
                         </div>
-                        <div class="merchantRegistration__field">
-                            <label for="merchant-mobile">شماره تماس</label>
-                            <input id="merchant-mobile" name="mobile" type="tel" inputmode="numeric" autocomplete="tel" placeholder="091xxxxxxxx" data-field="mobile" dir="ltr">
-                            <p class="merchantRegistration__error" data-error-for="mobile"></p>
-                        </div>
-                        <div class="merchantRegistration__field">
-                            <label for="merchant-company-name">نام مجموعه</label>
-                            <input id="merchant-company-name" name="company_name" type="text" autocomplete="organization" data-field="company_name">
-                            <p class="merchantRegistration__error" data-error-for="company_name"></p>
-                        </div>
-                        <input class="merchantRegistration__honeypot" name="website" type="text" tabindex="-1" autocomplete="off" aria-hidden="true">
-                        <button class="merchantRegistration__submit" type="submit" disabled data-default-text="ثبت درخواست همکاری">ثبت درخواست همکاری</button>
-                        <p class="merchantRegistration__submitError" data-submit-error></p>
-                    </form>
-                    <div class="merchantRegistration__success" data-merchant-registration-success hidden>
-                        <h3>درخواست شما ثبت شد</h3>
-                        <p>
-                            از ثبت درخواست شما سپاسگزاریم.
-                            <br>
-                            کارشناسان TisaPay در اولین فرصت با شما تماس خواهند گرفت.
-                        </p>
-                    </div>
+                        <form class="merchantRegistration__form" data-merchant-registration-form novalidate>
+                            <div class="merchantRegistration__field">
+                                <label for="merchant-full-name">نام و نام خانوادگی</label>
+                                <input id="merchant-full-name" name="full_name" type="text" autocomplete="name" data-field="full_name">
+                                <p class="merchantRegistration__error" data-error-for="full_name"></p>
+                            </div>
+                            <div class="merchantRegistration__field">
+                                <label for="merchant-mobile">شماره تماس</label>
+                                <input id="merchant-mobile" name="mobile" type="tel" inputmode="numeric" autocomplete="tel" placeholder="091xxxxxxxx" data-field="mobile" dir="ltr">
+                                <p class="merchantRegistration__error" data-error-for="mobile"></p>
+                            </div>
+                            <div class="merchantRegistration__field">
+                                <label for="merchant-company-name">نام مجموعه</label>
+                                <input id="merchant-company-name" name="company_name" type="text" autocomplete="organization" data-field="company_name">
+                                <p class="merchantRegistration__error" data-error-for="company_name"></p>
+                            </div>
+                            <div class="merchantRegistration__field">
+                                <label for="merchant-description">توضیحات</label>
+                                <textarea id="merchant-description" name="description" rows="4" placeholder="مثلاً نوع کسب‌وکار، شهر فعالیت یا تعداد شعب" data-field="description"></textarea>
+                                <p class="merchantRegistration__hint">اختیاری؛ برای بررسی سریع‌تر درخواست شما کمک می‌کند.</p>
+                            </div>
+                            <input class="merchantRegistration__honeypot" name="website" type="text" tabindex="-1" autocomplete="off" aria-hidden="true">
+                            <button class="merchantRegistration__submit" type="submit" disabled data-default-text="ثبت درخواست همکاری">ثبت درخواست همکاری</button>
+                            <p class="merchantRegistration__submitError" data-submit-error></p>
+                        </form>
+                    </aside>
                 </div>
             </section>
 
